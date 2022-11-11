@@ -1,6 +1,6 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -17,12 +17,15 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.js</code>
         </p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
+          <a
+            href="https://nextjs.org/docs"
+            className={`${styles.card} bg-[#ccc]`}
+          >
             <h2>Documentation &rarr;</h2>
             <p>Find in-depth information about Next.js features and API.</p>
           </a>
@@ -46,26 +49,39 @@ export default function Home() {
             rel="noopener noreferrer"
             className={styles.card}
           >
-            <h2>Deploy &rarr;</h2>
+            <h2 className="text-red-500">Deploy &rarr;</h2>
             <p>
               Instantly deploy your Next.js site to a public URL with Vercel.
             </p>
           </a>
         </div>
       </main>
+      <nav className="bg-slate-200 border-slate-300 fixed inset-x-0 bottom-0 p-8 border-t">
+        <ul className=" flex flex-row justify-around">
+          <li>
+            <Link href="/">Add</Link>
+          </li>
+          <li>
+            <Link href="/water">Water</Link>
+          </li>
+          <li>
+            <Link href="/collection">Collection</Link>
+          </li>
+        </ul>
+      </nav>
 
-      <footer className={styles.footer}>
+      {/* <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
-      </footer>
+      </footer> */}
     </div>
-  )
+  );
 }
