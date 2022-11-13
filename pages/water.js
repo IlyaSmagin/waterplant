@@ -41,42 +41,43 @@ export default function Collection() {
       </Head>
 
       <main className="">
-        <header>
-          <h1 className="p-8 text-3xl">My plants</h1>
+        <header className="flex flex-row justify-between items-baseline pt-8 px-6 font-bold">
+          <h1 className="text-3xl">Water today</h1>
+          <p className="text-slate-300 text-xs uppercase">
+            {plants.length} plants
+          </p>
         </header>
         <ul className="p-6 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
           {plants.map((plant) => (
             <li
-              className="rounded-xl border-slate-300 isolate relative flex flex-col justify-between w-full p-8 text-white overflow-hidden bg-[#8fbcc5] border"
+              className=" min-h-[6rem] rounded-xl isolate relative flex flex-row justify-between items-center w-full pl-0 pr-4 py-4 text-white overflow-hidden first:bg-[#b0cde3] bg-[#e5e9ea] "
               key={plant.id}
             >
-              <div className=" mb-12 text-2xl font-bold">{plant.name}</div>
-
-              <div className="mb-2 leading-none">
-                <div className="font-bold uppercase opacity-50 ">water</div>
-                <div className=" font-normal">
-                  {calculateNextWatering(
-                    plant.lastWateringTime,
-                    plant.wateringRegularity
-                  )}
-                </div>
-              </div>
-              <div className="mb-2 leading-none">
-                <div className="font-bold uppercase opacity-50 ">light</div>
-                <div className=" font-normal">{plant.light}</div>
-              </div>
-              <div className="mb-2 leading-none">
-                <div className="font-bold uppercase opacity-50 ">temp</div>
-                <div className=" font-normal">{plant.temperature}</div>
-              </div>
-              <div className="-z-10 absolute inset-y-0 -right-4 w-2/3 h-full">
+              <div className=" flex-none relative h-full w-1/4">
                 <Image
-                  src="/../public/p1.png"
+                  src="/../public/p2.png"
                   alt=""
                   objectFit="contain"
                   fill="true"
                 />
               </div>
+
+              <div className="mb-2 flex-1 self-start">
+                <div className="text-lg font-bold leading-none">
+                  {plant.name}
+                </div>
+                <div className="flex flex-row flex-nowrap">
+                  <div className="font-bold uppercase opacity-60  mr-2">
+                    water
+                  </div>
+                  <div className=" font-normal">
+                    ~ {plant.wateringVolume} ml
+                  </div>
+                </div>
+              </div>
+              <button className="flex-none rounded-full bg-white/30 text-white w-14 h-14">
+                check
+              </button>
             </li>
           ))}
         </ul>
@@ -86,10 +87,10 @@ export default function Collection() {
           <li>
             <Link href="/">Add</Link>
           </li>
-          <li>
+          <li className="text-slate-700 font-bold">
             <Link href="/water">Water</Link>
           </li>
-          <li className="text-slate-700 font-bold">
+          <li>
             <Link href="/collection">Collection</Link>
           </li>
         </ul>
