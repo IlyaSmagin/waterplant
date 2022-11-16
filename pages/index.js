@@ -1,7 +1,9 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import DropIcon from "./components/icons/drop";
+import AddIcon from "./components/icons/add";
+import PlantIcon from "./components/icons/plant";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";
 
@@ -29,36 +31,36 @@ export default function Home() {
       </Head>
 
       <main className="">
-        <form class="flex items-center mt-8">
-          <label for="simple-search" class="sr-only">
+        <form className="flex items-center mt-8">
+          <label htmlFor="simple-search" className="sr-only">
             Search
           </label>
-          <div class="relative w-full mt-8 mx-6">
-            <div class="flex absolute inset-y-0 left-4 items-center pointer-events-none">
+          <div className="relative w-full mt-8 mx-6">
+            <div className="flex absolute inset-y-0 left-4 items-center pointer-events-none">
               <svg
                 aria-hidden="true"
-                class="w-5 h-5 text-gray-500"
+                className="w-5 h-5 text-gray-500"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </div>
             <input
               type="text"
               id="simple-search"
-              class="placeholder:text-center bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:outline-slate-500 block w-full pl-10 p-2.5 "
+              className="placeholder:text-center bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:outline-slate-500 block w-full pl-10 p-2.5 "
               placeholder="Search"
             />
           </div>
         </form>
 
-        <ul class="mx-6 my-4 flex flex-row justify-between border-b-2 border-b-slate-300 text-slate-400 font-bold uppercase text-xs">
+        <ul className="mx-6 my-4 flex flex-row justify-between border-b-2 border-b-slate-300 text-slate-400 font-bold uppercase text-xs">
           <li className="relative flex flex-col items-center justify-center">
             <input
               type="radio"
@@ -68,11 +70,11 @@ export default function Home() {
               className="peer/water checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
             />
             <label
-              for="water"
+              htmlFor="water"
               className="peer-checked/water:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
             >
-              <div class="block">
-                <div class="w-full">Water</div>
+              <div className="block">
+                <div className="w-full">Water</div>
               </div>
             </label>
           </li>
@@ -85,11 +87,11 @@ export default function Home() {
               className="peer/size checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
             />
             <label
-              for="size"
+              htmlFor="size"
               className="peer-checked/size:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
             >
-              <div class="block">
-                <div class="w-full">Size</div>
+              <div className="block">
+                <div className="w-full">Size</div>
               </div>
             </label>
           </li>
@@ -102,11 +104,11 @@ export default function Home() {
               className="peer/difficulty checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
             />
             <label
-              for="difficulty"
+              htmlFor="difficulty"
               className="peer-checked/difficulty:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
             >
-              <div class="block">
-                <div class="w-full">Difficulty</div>
+              <div className="block">
+                <div className="w-full">Difficulty</div>
               </div>
             </label>
           </li>
@@ -119,11 +121,11 @@ export default function Home() {
               className="peer/light checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
             />
             <label
-              for="light"
+              htmlFor="light"
               className="peer-checked/light:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
             >
-              <div class="block">
-                <div class="w-full">Light</div>
+              <div className="block">
+                <div className="w-full">Light</div>
               </div>
             </label>
           </li>
@@ -145,7 +147,7 @@ export default function Home() {
                 <Image
                   src="/../public/p2.png"
                   alt=""
-                  objectFit="contain"
+                  className="object-contain"
                   fill="true"
                 />
               </div>
@@ -175,7 +177,7 @@ export default function Home() {
                 <Image
                   src="/../public/p2.png"
                   alt=""
-                  objectFit="contain"
+                  className="object-contain"
                   fill="true"
                 />
               </div>
@@ -205,7 +207,7 @@ export default function Home() {
                 <Image
                   src="/../public/p2.png"
                   alt=""
-                  objectFit="contain"
+                  className="object-contain"
                   fill="true"
                 />
               </div>
@@ -221,15 +223,21 @@ export default function Home() {
         </ul>
       </main>
       <nav className="bg-[#f7f8f9] border-slate-200 fixed inset-x-0 bottom-0 p-6 pt-4 border-t">
-        <ul className=" flex flex-row justify-around">
-          <li className="text-slate-700 font-bold">
-            <Link href="/">Add</Link>
+        <ul className=" flex flex-row justify-around text-slate-500">
+          <li className="text-slate-900 font-bold">
+            <Link href="/">
+              <AddIcon />
+            </Link>
           </li>
           <li>
-            <Link href="/water">Water</Link>
+            <Link href="/water">
+              <DropIcon />
+            </Link>
           </li>
           <li>
-            <Link href="/collection">Collection</Link>
+            <Link href="/collection">
+              <PlantIcon />
+            </Link>
           </li>
         </ul>
       </nav>
