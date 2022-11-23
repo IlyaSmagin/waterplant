@@ -145,7 +145,7 @@ export default function Home() {
             >
               <div className="absolute bottom-1 right-0 h-5/6 w-1/2">
                 <Image
-                  src="/../public/p2.png"
+                  src={`/../public/p${plant.id}.png`}
                   alt=""
                   className="object-contain"
                   fill="true"
@@ -167,7 +167,7 @@ export default function Home() {
             show all {plants.length}
           </p>
         </header>
-        <ul className="mx-6 pt-4 pb-10 gap-4 grid aspect-square md:aspect-auto grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 justify-items-center">
+        <ul className="ord mx-6 pt-4 pb-10 gap-4 grid aspect-square md:aspect-auto grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 justify-items-center">
           {plants.map((plant) => (
             <li
               className=" min-h-[6rem] rounded-xl isolate md:aspect-square relative flex flex-col justify-between items-start  w-full pl-2 pr-4 py-2 text-white overflow-hidden bg-[#b0cde3] last:bg-[#c1e0df] "
@@ -175,7 +175,7 @@ export default function Home() {
             >
               <div className="absolute bottom-1 right-0 h-5/6 w-1/2">
                 <Image
-                  src="/../public/p2.png"
+                  src={`/../public/p${plant.id}.png`}
                   alt=""
                   className="object-contain"
                   fill="true"
@@ -205,7 +205,7 @@ export default function Home() {
             >
               <div className="absolute bottom-1 right-0 h-5/6 w-1/2">
                 <Image
-                  src="/../public/p2.png"
+                  src={`/../public/p${plant.id}.png`}
                   alt=""
                   className="object-contain"
                   fill="true"

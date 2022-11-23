@@ -14,7 +14,7 @@ export default function Collection() {
     const { data: plants } = await supabase
       .from("plants")
       .select("*")
-      .order("name", true);
+      .order("id", true);
     setPlants(plants);
   };
 
@@ -47,7 +47,7 @@ export default function Collection() {
         <header>
           <h1 className="p-8 text-3xl">My plants</h1>
         </header>
-        <ul className="p-6 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
+        <ul className="p-6 gap-4 mb-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
           {plants.map((plant) => (
             <li
               className="rounded-xl border-slate-300 isolate relative flex flex-col justify-between w-full p-8 text-white overflow-hidden bg-[#8fbcc5] border"
@@ -77,7 +77,7 @@ export default function Collection() {
               </div>
               <div className="-z-10 absolute inset-y-0 -right-4 w-2/3 h-full">
                 <Image
-                  src="/../public/p1.png"
+                  src={`/../public/p${plant.id}.png`}
                   alt=""
                   className="object-contain"
                   fill="true"

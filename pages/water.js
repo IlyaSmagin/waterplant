@@ -6,6 +6,7 @@ import AddIcon from "./components/icons/add";
 import PlantIcon from "./components/icons/plant";
 import VolumeIcon from "./components/icons/volume";
 import CheckIcon from "./components/icons/check";
+import WaterItem from "./water/about";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";
 
@@ -16,14 +17,27 @@ export default function Collection() {
     const { data: plants } = await supabase
       .from("plants")
       .select("*")
-      .order("name", true);
+      .order("id", true);
     setPlants(plants);
   };
 
   useEffect(() => {
     fetchPlants();
   }, []);
-
+  const cancelWatering = (e, index) => {
+    const now = new Date();
+    const newItems = plants.map((item, itemIndex) => {
+      if (itemIndex == index) {
+        return {
+          ...item,
+          lastWateringTime:
+            now.toISOString() - item.wateringRegularity * (1000 * 60 * 60),
+        };
+      }
+      return item;
+    });
+    setPlants(newItems);
+  };
   const handleWatering = (e, index) => {
     const now = new Date();
     /* 
@@ -37,20 +51,6 @@ export default function Collection() {
       return item;
     });
     setPlants(newItems);
-  };
-
-  const calculateNextWatering = (lastWateringTime, wateringRegularity) => {
-    //calculates num of hours passed from imput timestamp
-    const date = new Date(lastWateringTime);
-    const now = new Date();
-    const timePassed = now - date;
-    const time = wateringRegularity - Math.floor(timePassed / (1000 * 60 * 60));
-    /* if (time > 0) {
-      return `Next watering in ${time} hours.`;
-    } else {
-      return `You have to water the plant!`;
-    } */
-    return time;
   };
 
   return (
@@ -70,61 +70,14 @@ export default function Collection() {
         </header>
         <ul className="p-6 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
           {plants.map((plant, index) => (
-            <li
-              className={
-                " pr-4  min-h-[6rem] rounded-xl w-full text-white overflow-hidden h-full flex flex-row justify-between items-center " +
-                (calculateNextWatering(
-                  plant.lastWateringTime,
-                  plant.wateringRegularity
-                ) > 23
-                  ? "bg-[#b0cde3]"
-                  : "bg-[#e5e9ea]")
-              }
-              key={plant.id}
-            >
-              <Link
-                className="h-full w-full pl-0 py-4 mr-4 isolate relative flex flex-row justify-between items-center "
-                href="/water/about"
-              >
-                <div className=" flex-none relative h-full w-1/4">
-                  <Image
-                    className="object-contain"
-                    src="/../public/p2.png"
-                    alt=""
-                    fill
-                    sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
-                  />
-                </div>
-
-                <div className="mb-2 flex-1 self-start">
-                  <div className="text-lg font-bold leading-none">
-                    {plant.name}
-                  </div>
-                  <div className=" mt-3 text-slate-500 flex flex-row flex-nowrap">
-                    <div className=" flex justify-center items-baseline">
-                      <VolumeIcon className="w-6 h-6" />
-                    </div>
-                    <div className=" font-normal">
-                      ~ {plant.wateringVolume} ml
-                    </div>
-                  </div>
-                </div>
-              </Link>
-              <button
-                className="flex-none flex justify-center items-center rounded-full bg-white/30 text-white w-12 h-12"
-                onClick={(e) => handleWatering(e, index)}
-              >
-                {calculateNextWatering(
-                  plant.lastWateringTime,
-                  plant.wateringRegularity
-                ) > 23 ? (
-                  <CheckIcon className="h-7 w-7" />
-                ) : (
-                  <DropIcon className="h-7 w-7" />
-                )}
-              </button>
+            <li key={plant.id} className="w-full">
+              <WaterItem
+                plant={plant}
+                handleWatering={handleWatering}
+                index={index}
+                cancelWatering={cancelWatering}
+              />
+              {/* pass plant */}
             </li>
           ))}
         </ul>
