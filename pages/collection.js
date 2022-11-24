@@ -3,7 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import DropIcon from "./components/icons/drop";
 import AddIcon from "./components/icons/add";
+import SunIcon from "./components/icons/sun";
 import PlantIcon from "./components/icons/plant";
+import TempIcon from "./components/icons/temp";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";
 
@@ -50,30 +52,33 @@ export default function Collection() {
         <ul className="p-6 gap-4 mb-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
           {plants.map((plant) => (
             <li
-              className="rounded-xl border-slate-300 isolate relative flex flex-col justify-between w-full p-8 text-white overflow-hidden bg-[#8fbcc5] border"
+              className="rounded-xl border-slate-300 isolate relative flex flex-col justify-between w-full p-6 text-white overflow-hidden bg-[#8fbcc5] border"
               key={plant.id}
             >
-              <div className=" mb-12 text-2xl font-bold">{plant.name}</div>
+              <div className=" mb-16 text-2xl font-bold">{plant.name}</div>
 
-              <div className="mb-2 leading-none flex flex-row">
-                <DropIcon className=" opacity-50" />
+              <div className="mb-4 leading-none flex flex-row justify-start items-start">
+                <DropIcon className="-ml-1.5 mr-1 w-6 h-6 opacity-50" />
                 <div className="">
                   <div className="font-bold uppercase opacity-50 ">water</div>
                   <div className=" font-normal">
-                    {calculateNextWatering(
-                      plant.lastWateringTime,
-                      plant.wateringRegularity
-                    )}
+                    {`1 / ${plant.wateringRegularity} hours`}
                   </div>
                 </div>
               </div>
-              <div className="mb-2 leading-none">
-                <div className="font-bold uppercase opacity-50 ">light</div>
-                <div className=" font-normal">{plant.light}</div>
+              <div className="mb-4 leading-none flex flex-row justify-start">
+                <SunIcon className="-ml-1.5 mr-1 w-6 h-6 opacity-50" />
+                <div className="">
+                  <div className="font-bold uppercase opacity-50 ">light</div>
+                  <div className=" font-normal">{plant.light}</div>
+                </div>
               </div>
-              <div className="mb-2 leading-none">
-                <div className="font-bold uppercase opacity-50 ">temp</div>
-                <div className=" font-normal">{plant.temperature}</div>
+              <div className="leading-none flex flex-row justify-start">
+                <TempIcon className="-ml-1.5 mr-1 w-6 h-6 opacity-50" />
+                <div className="">
+                  <div className="font-bold uppercase opacity-50 ">temp</div>
+                  <div className=" font-normal">{plant.temperature}</div>
+                </div>
               </div>
               <div className="-z-10 absolute inset-y-0 -right-4 w-2/3 h-full">
                 <Image

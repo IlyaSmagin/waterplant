@@ -6,7 +6,9 @@ import AddIcon from "./components/icons/add";
 import PlantIcon from "./components/icons/plant";
 import VolumeIcon from "./components/icons/volume";
 import CheckIcon from "./components/icons/check";
+import { motion, variants } from "framer-motion";
 import WaterItem from "./water/about";
+import { calculateNextWatering } from "./water/about";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";
 
@@ -40,10 +42,6 @@ export default function Collection() {
   };
   const handleWatering = (e, index) => {
     const now = new Date();
-    /* 
-    let newPlant = plant;
-    Object.assign(newPlant, { lastWateringTime: Date() });
-    setPlants((prev) => [...prev, newPlant]); */
     const newItems = plants.map((item, itemIndex) => {
       if (itemIndex == index) {
         return { ...item, lastWateringTime: now.toISOString() };
@@ -51,6 +49,36 @@ export default function Collection() {
       return item;
     });
     setPlants(newItems);
+  };
+  const plantsLeftToWater = () => {
+    return plants.reduce((accumulator, currentPlant) => {
+      if (
+        calculateNextWatering(
+          currentPlant.lastWateringTime,
+          currentPlant.wateringRegularity
+        ) < 23
+      ) {
+        return accumulator + 1;
+      }
+      return accumulator;
+    }, 0);
+  };
+
+  const container = {
+    show: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const item = {
+    show: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.75 },
+    },
+    hidden: { opacity: 0, x: "150%" },
   };
 
   return (
@@ -65,22 +93,29 @@ export default function Collection() {
         <header className="flex flex-row justify-between items-baseline pt-8 px-6 font-bold">
           <h1 className="text-3xl">Water today</h1>
           <p className="text-slate-300 text-xs uppercase">
-            {plants.length} plants
+            {plantsLeftToWater()} plants
           </p>
         </header>
-        <ul className="p-6 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
-          {plants.map((plant, index) => (
-            <li key={plant.id} className="w-full">
-              <WaterItem
-                plant={plant}
-                handleWatering={handleWatering}
-                index={index}
-                cancelWatering={cancelWatering}
-              />
-              {/* pass plant */}
-            </li>
-          ))}
-        </ul>
+        {plants.length > 0 ? (
+          <motion.ul
+            variants={container}
+            initial="hidden"
+            animate="show"
+            className="p-6 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center"
+          >
+            {plants.map((plant, index) => (
+              <motion.li variants={item} key={plant.id} className="w-full">
+                <WaterItem
+                  plant={plant}
+                  handleWatering={handleWatering}
+                  index={index}
+                  cancelWatering={cancelWatering}
+                />
+                {/* pass plant */}
+              </motion.li>
+            ))}
+          </motion.ul>
+        ) : null}
       </main>
       <nav className="bg-[#f7f8f9] border-slate-200 fixed inset-x-0 bottom-0 p-6 pt-4 border-t">
         <ul className=" flex flex-row justify-around text-slate-500">
