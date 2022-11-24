@@ -6,14 +6,16 @@ import AddIcon from "./components/icons/add";
 import PlantIcon from "./components/icons/plant";
 import VolumeIcon from "./components/icons/volume";
 import CheckIcon from "./components/icons/check";
-import { motion, variants } from "framer-motion";
-import WaterItem from "./water/about";
-import { calculateNextWatering } from "./water/about";
+import { motion } from "framer-motion";
+import WaterItem from "./water/waterItem";
+import WaterAbout from "./water/waterAbout";
+import { calculateNextWatering } from "./water/waterItem";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";
 
 export default function Collection() {
   const [plants, setPlants] = useState([]);
+  const [whichIsOpen, setWhichIsOpen] = useState(-1);
 
   const fetchPlants = async () => {
     const { data: plants } = await supabase
@@ -70,6 +72,7 @@ export default function Collection() {
         staggerChildren: 0.1,
       },
     },
+    hidden: {},
   };
 
   const item = {
@@ -98,14 +101,21 @@ export default function Collection() {
         </header>
         {plants.length > 0 ? (
           <motion.ul
+            layout="size"
             variants={container}
             initial="hidden"
             animate="show"
-            className="p-6 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center"
+            className="p-6 gap-4 mb-20 grid h-fit grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center"
           >
             {plants.map((plant, index) => (
-              <motion.li variants={item} key={plant.id} className="w-full">
+              <motion.li
+                layout="position"
+                variants={item}
+                key={plant.id}
+                className="w-full h-full "
+              >
                 <WaterItem
+                  setWhichIsOpen={setWhichIsOpen}
                   plant={plant}
                   handleWatering={handleWatering}
                   index={index}
@@ -115,6 +125,17 @@ export default function Collection() {
               </motion.li>
             ))}
           </motion.ul>
+        ) : (
+          <div>LOADING</div>
+        )}
+        {whichIsOpen !== -1 ? (
+          <WaterAbout
+            plant={plants[whichIsOpen]}
+            handleWatering={handleWatering}
+            index={whichIsOpen}
+            cancelWatering={cancelWatering}
+            setWhichIsOpen={setWhichIsOpen}
+          />
         ) : null}
       </main>
       <nav className="bg-[#f7f8f9] border-slate-200 fixed inset-x-0 bottom-0 p-6 pt-4 border-t">

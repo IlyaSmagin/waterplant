@@ -6,9 +6,89 @@ import AddIcon from "./components/icons/add";
 import PlantIcon from "./components/icons/plant";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";
+const Filter = () => {
+  const [filterCategory, setFilterCategory] = useState("water");
+  return (
+    <ul className="mx-6 my-4 flex flex-row justify-between border-b-2 border-b-slate-300 text-slate-400 font-bold uppercase text-xs">
+      <li className="relative flex flex-col items-center justify-center">
+        <input
+          type="radio"
+          id="water"
+          onClick={() => setFilterCategory("water")}
+          name="hosting"
+          value="water"
+          className="peer/water checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+        />
+        <label
+          htmlFor="water"
+          className="peer-checked/water:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
+        >
+          <div className="block">
+            <div className="w-full">Water</div>
+          </div>
+        </label>
+      </li>
+      <li className="relative flex flex-col items-center justify-center">
+        <input
+          type="radio"
+          id="size"
+          onClick={() => setFilterCategory("size")}
+          name="hosting"
+          value="size"
+          className="peer/size checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+        />
+        <label
+          htmlFor="size"
+          className="peer-checked/size:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
+        >
+          <div className="block">
+            <div className="w-full">Size</div>
+          </div>
+        </label>
+      </li>
+      <li className="relative flex flex-col items-center justify-center">
+        <input
+          type="radio"
+          id="difficulty"
+          onClick={() => setFilterCategory("difficulty")}
+          name="hosting"
+          value="difficulty"
+          className="peer/difficulty checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+        />
+        <label
+          htmlFor="difficulty"
+          className="peer-checked/difficulty:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
+        >
+          <div className="block">
+            <div className="w-full">Difficulty</div>
+          </div>
+        </label>
+      </li>
+      <li className="relative flex flex-col items-center justify-center">
+        <input
+          type="radio"
+          id="light"
+          onClick={() => setFilterCategory("light")}
+          name="hosting"
+          value="light"
+          className="peer/light checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+        />
+        <label
+          htmlFor="light"
+          className="peer-checked/light:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
+        >
+          <div className="block">
+            <div className="w-full">Light</div>
+          </div>
+        </label>
+      </li>
+    </ul>
+  );
+};
 
 export default function Home() {
   const [plants, setPlants] = useState([]);
+  
 
   const fetchPlants = async () => {
     const { data: plants } = await supabase
@@ -60,76 +140,7 @@ export default function Home() {
           </div>
         </form>
 
-        <ul className="mx-6 my-4 flex flex-row justify-between border-b-2 border-b-slate-300 text-slate-400 font-bold uppercase text-xs">
-          <li className="relative flex flex-col items-center justify-center">
-            <input
-              type="radio"
-              id="water"
-              name="hosting"
-              value="water"
-              className="peer/water checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
-            />
-            <label
-              htmlFor="water"
-              className="peer-checked/water:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
-            >
-              <div className="block">
-                <div className="w-full">Water</div>
-              </div>
-            </label>
-          </li>
-          <li className="relative flex flex-col items-center justify-center">
-            <input
-              type="radio"
-              id="size"
-              name="hosting"
-              value="size"
-              className="peer/size checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
-            />
-            <label
-              htmlFor="size"
-              className="peer-checked/size:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
-            >
-              <div className="block">
-                <div className="w-full">Size</div>
-              </div>
-            </label>
-          </li>
-          <li className="relative flex flex-col items-center justify-center">
-            <input
-              type="radio"
-              id="difficulty"
-              name="hosting"
-              value="difficulty"
-              className="peer/difficulty checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
-            />
-            <label
-              htmlFor="difficulty"
-              className="peer-checked/difficulty:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
-            >
-              <div className="block">
-                <div className="w-full">Difficulty</div>
-              </div>
-            </label>
-          </li>
-          <li className="relative flex flex-col items-center justify-center">
-            <input
-              type="radio"
-              id="light"
-              name="hosting"
-              value="light"
-              className="peer/light checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
-            />
-            <label
-              htmlFor="light"
-              className="peer-checked/light:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
-            >
-              <div className="block">
-                <div className="w-full">Light</div>
-              </div>
-            </label>
-          </li>
-        </ul>
+        <Filter />
 
         <header className="flex flex-row justify-between items-baseline font-bold mx-6 mt-8">
           <h1 className="text-xl">Small</h1>
