@@ -6,15 +6,30 @@ import AddIcon from "./components/icons/add";
 import PlantIcon from "./components/icons/plant";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";
-const Filter = () => {
+const Filter = ({ array, setGroupedArray }) => {
   const [filterCategory, setFilterCategory] = useState("water");
+
+  useEffect(() => {
+    const groupedPlants = array.reduce((accumPlant, currentPlant) => {
+      if (!accumPlant[currentPlant.light]) {
+        accumPlant[currentPlant.light] = [];
+      }
+      accumPlant[currentPlant.light].push(currentPlant);
+      return accumPlant;
+    }, {});
+    setGroupedArray(groupedPlants);
+  }, [array, filterCategory]);
+  function onChangeValue(event) {
+    setFilterCategory(event.target.value);
+  }
   return (
     <ul className="mx-6 my-4 flex flex-row justify-between border-b-2 border-b-slate-300 text-slate-400 font-bold uppercase text-xs">
       <li className="relative flex flex-col items-center justify-center">
         <input
           type="radio"
           id="water"
-          onClick={() => setFilterCategory("water")}
+          onChange={onChangeValue}
+          checked={filterCategory === "water"}
           name="hosting"
           value="water"
           className="peer/water checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
@@ -32,8 +47,9 @@ const Filter = () => {
         <input
           type="radio"
           id="size"
-          onClick={() => setFilterCategory("size")}
           name="hosting"
+          onChange={onChangeValue}
+          checked={filterCategory === "size"}
           value="size"
           className="peer/size checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
@@ -50,8 +66,9 @@ const Filter = () => {
         <input
           type="radio"
           id="difficulty"
-          onClick={() => setFilterCategory("difficulty")}
           name="hosting"
+          onChange={onChangeValue}
+          checked={filterCategory === "difficulty"}
           value="difficulty"
           className="peer/difficulty checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
@@ -68,8 +85,9 @@ const Filter = () => {
         <input
           type="radio"
           id="light"
-          onClick={() => setFilterCategory("light")}
           name="hosting"
+          checked={filterCategory === "light"}
+          onChange={onChangeValue}
           value="light"
           className="peer/light checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
@@ -88,7 +106,7 @@ const Filter = () => {
 
 export default function Home() {
   const [plants, setPlants] = useState([]);
-  
+  const [groupedPlants, setGroupedPlants] = useState();
 
   const fetchPlants = async () => {
     const { data: plants } = await supabase
@@ -97,7 +115,46 @@ export default function Home() {
       .order("name", true);
     setPlants(plants);
   };
+  const grouped = [];
+  for (const prop in groupedPlants) {
+    grouped.push(
+      <header className="flex flex-row justify-between items-baseline font-bold mx-6">
+        <h1 className="text-xl">{prop}</h1>
+        <p className="text-slate-300 text-xs uppercase">
+          show all {groupedPlants[prop].length}
+        </p>
+      </header>
+    );
+    const groupPlants = groupedPlants[prop].map((plant) => {
+      return (
+        <li
+          className=" min-h-[6rem] rounded-xl isolate md:aspect-square relative flex flex-col justify-between items-start  w-full pl-2 pr-4 py-2 text-white overflow-hidden bg-[#b0cde3] last:bg-[#c1e0df] "
+          key={plant.id}
+        >
+          <div className="absolute bottom-1 right-0 h-5/6 w-1/2">
+            <Image
+              src={`/../public/p${plant.id}.png`}
+              alt=""
+              className="object-contain"
+              fill="true"
+            />
+          </div>
 
+          <div className="text-md font-bold leading-none mb-2 pr-6">
+            {plant.name}
+          </div>
+          <button className="rounded-full bg-white/30 text-white w-8 h-8 flex justify-center items-center text-2xl pb-1">
+            +
+          </button>
+        </li>
+      );
+    });
+    grouped.push(
+      <ul className="ord mx-6 pt-4 pb-10 gap-4 grid aspect-square md:aspect-auto grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 justify-items-center">
+        {groupPlants}
+      </ul>
+    );
+  }
   useEffect(() => {
     fetchPlants();
   }, []);
@@ -140,98 +197,9 @@ export default function Home() {
           </div>
         </form>
 
-        <Filter />
+        <Filter array={plants} setGroupedArray={setGroupedPlants} />
 
-        <header className="flex flex-row justify-between items-baseline font-bold mx-6 mt-8">
-          <h1 className="text-xl">Small</h1>
-          <p className="text-slate-300 text-xs uppercase">
-            show all {plants.length}
-          </p>
-        </header>
-        <ul className="mx-6 pt-4 pb-8 gap-4 grid aspect-square md:aspect-auto grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 justify-items-center">
-          {plants.map((plant) => (
-            <li
-              className=" min-h-[6rem] rounded-xl md:aspect-square isolate relative flex flex-col justify-between items-start  w-full pl-2 pr-4 py-2 text-white overflow-hidden bg-[#b0cde3] last:bg-[#c1e0df] "
-              key={plant.id}
-            >
-              <div className="absolute bottom-1 right-0 h-5/6 w-1/2">
-                <Image
-                  src={`/../public/p${plant.id}.png`}
-                  alt=""
-                  className="object-contain"
-                  fill="true"
-                />
-              </div>
-
-              <div className="text-md font-bold leading-none mb-2 pr-6">
-                {plant.name}
-              </div>
-              <button className="rounded-full bg-white/30 text-white w-8 h-8 flex justify-center items-center text-2xl pb-1">
-                +
-              </button>
-            </li>
-          ))}
-        </ul>
-        <header className="flex flex-row justify-between items-baseline font-bold mx-6">
-          <h1 className="text-xl">Medium</h1>
-          <p className="text-slate-300 text-xs uppercase">
-            show all {plants.length}
-          </p>
-        </header>
-        <ul className="ord mx-6 pt-4 pb-10 gap-4 grid aspect-square md:aspect-auto grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 justify-items-center">
-          {plants.map((plant) => (
-            <li
-              className=" min-h-[6rem] rounded-xl isolate md:aspect-square relative flex flex-col justify-between items-start  w-full pl-2 pr-4 py-2 text-white overflow-hidden bg-[#b0cde3] last:bg-[#c1e0df] "
-              key={plant.id}
-            >
-              <div className="absolute bottom-1 right-0 h-5/6 w-1/2">
-                <Image
-                  src={`/../public/p${plant.id}.png`}
-                  alt=""
-                  className="object-contain"
-                  fill="true"
-                />
-              </div>
-
-              <div className="text-md font-bold leading-none mb-2 pr-6">
-                {plant.name}
-              </div>
-              <button className="rounded-full bg-white/30 text-white w-8 h-8 flex justify-center items-center text-2xl pb-1">
-                +
-              </button>
-            </li>
-          ))}
-        </ul>
-        <header className="flex flex-row justify-between items-baseline font-bold mx-6">
-          <h1 className="text-xl">Large</h1>
-          <p className="text-slate-300 text-xs uppercase">
-            show all {plants.length}
-          </p>
-        </header>
-        <ul className="mx-6 pt-4 mb-16 pb-10 gap-4 grid aspect-square md:aspect-auto grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 justify-items-center">
-          {plants.map((plant) => (
-            <li
-              className=" min-h-[6rem] rounded-xl isolate md:aspect-square relative flex flex-col justify-between items-start  w-full pl-2 pr-4 py-2 text-white overflow-hidden bg-[#b0cde3] last:bg-[#c1e0df] "
-              key={plant.id}
-            >
-              <div className="absolute bottom-1 right-0 h-5/6 w-1/2">
-                <Image
-                  src={`/../public/p${plant.id}.png`}
-                  alt=""
-                  className="object-contain"
-                  fill="true"
-                />
-              </div>
-
-              <div className="text-md font-bold leading-none mb-2 pr-6">
-                {plant.name}
-              </div>
-              <button className="rounded-full bg-white/30 text-white w-8 h-8 flex justify-center items-center text-2xl pb-1">
-                +
-              </button>
-            </li>
-          ))}
-        </ul>
+        {grouped}
       </main>
       <nav className="bg-[#f7f8f9] border-slate-200 fixed inset-x-0 bottom-0 p-6 pt-4 border-t">
         <ul className=" flex flex-row justify-around text-slate-500">
