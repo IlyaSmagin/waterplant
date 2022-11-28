@@ -7,14 +7,14 @@ import PlantIcon from "./components/icons/plant";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";
 const Filter = ({ array, setGroupedArray }) => {
-  const [filterCategory, setFilterCategory] = useState("water");
+  const [filterCategory, setFilterCategory] = useState("wateringVolume");
 
   useEffect(() => {
     const groupedPlants = array.reduce((accumPlant, currentPlant) => {
-      if (!accumPlant[currentPlant.light]) {
-        accumPlant[currentPlant.light] = [];
+      if (!accumPlant[currentPlant[filterCategory]]) {
+        accumPlant[currentPlant[filterCategory]] = [];
       }
-      accumPlant[currentPlant.light].push(currentPlant);
+      accumPlant[currentPlant[filterCategory]].push(currentPlant);
       return accumPlant;
     }, {});
     setGroupedArray(groupedPlants);
@@ -29,7 +29,7 @@ const Filter = ({ array, setGroupedArray }) => {
           type="radio"
           id="water"
           onChange={onChangeValue}
-          checked={filterCategory === "water"}
+          checked={filterCategory === "wateringVolume"}
           name="hosting"
           value="water"
           className="peer/water checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
@@ -121,14 +121,14 @@ export default function Home() {
       <header className="flex flex-row justify-between items-baseline font-bold mx-6">
         <h1 className="text-xl">{prop}</h1>
         <p className="text-slate-300 text-xs uppercase">
-          show all {groupedPlants[prop].length}
+          {groupedPlants[prop].length} plants
         </p>
       </header>
     );
     const groupPlants = groupedPlants[prop].map((plant) => {
       return (
         <li
-          className=" min-h-[6rem] rounded-xl isolate md:aspect-square relative flex flex-col justify-between items-start  w-full pl-2 pr-4 py-2 text-white overflow-hidden bg-[#b0cde3] last:bg-[#c1e0df] "
+          className=" min-h-[6rem] rounded-xl isolate aspect-square relative flex flex-col justify-between items-start  w-full pl-2 pr-4 py-2 text-white overflow-hidden bg-[#b0cde3] last:bg-[#c1e0df] "
           key={plant.id}
         >
           <div className="absolute bottom-1 right-0 h-5/6 w-1/2">
@@ -150,7 +150,7 @@ export default function Home() {
       );
     });
     grouped.push(
-      <ul className="ord mx-6 pt-4 pb-10 gap-4 grid aspect-square md:aspect-auto grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 justify-items-center">
+      <ul className=" mx-6 pt-4 pb-10 gap-4 grid md:aspect-auto grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 justify-items-center">
         {groupPlants}
       </ul>
     );
@@ -167,7 +167,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="">
+      <main className="mb-20">
         <form className="flex items-center mt-8">
           <label htmlFor="simple-search" className="sr-only">
             Search
