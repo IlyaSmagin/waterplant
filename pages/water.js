@@ -68,11 +68,12 @@ export default function Collection() {
 
   const container = {
     show: {
+      opacity: 1,
       transition: {
         staggerChildren: 0.1,
       },
     },
-    hidden: {},
+    hidden: { opacity: 0 },
   };
 
   const item = {
@@ -81,7 +82,7 @@ export default function Collection() {
       x: 0,
       transition: { duration: 0.75 },
     },
-    hidden: { opacity: 0, x: "150%" },
+    hidden: { opacity: 0, x: 150 },
   };
 
   return (
@@ -101,18 +102,17 @@ export default function Collection() {
         </header>
         {plants.length > 0 ? (
           <motion.ul
-            layout="size"
             variants={container}
             initial="hidden"
             animate="show"
-            className="p-6 gap-4 mb-20 grid h-fit grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center"
+            className="p-6 gap-4 mb-20 grid h-auto w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center overflow-hidden"
           >
             {plants.map((plant, index) => (
               <motion.li
                 layout="position"
                 variants={item}
                 key={plant.id}
-                className="w-full h-full "
+                className="w-full"
               >
                 <WaterItem
                   setWhichIsOpen={setWhichIsOpen}
@@ -125,9 +125,7 @@ export default function Collection() {
               </motion.li>
             ))}
           </motion.ul>
-        ) : (
-          <div>LOADING</div>
-        )}
+        ) : null}
         {whichIsOpen !== -1 ? (
           <WaterAbout
             plant={plants[whichIsOpen]}
