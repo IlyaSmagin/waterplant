@@ -5,38 +5,27 @@ import DropIcon from "./components/icons/drop";
 import AddIcon from "./components/icons/add";
 import PlantIcon from "./components/icons/plant";
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "../lib/initSupabase";
-const Filter = ({ array, setGroupedArray }) => {
-  const [filterCategory, setFilterCategory] = useState("wateringVolume");
-
-  useEffect(() => {
-    const groupedPlants = array.reduce((accumPlant, currentPlant) => {
-      if (!accumPlant[currentPlant[filterCategory]]) {
-        accumPlant[currentPlant[filterCategory]] = [];
-      }
-      accumPlant[currentPlant[filterCategory]].push(currentPlant);
-      return accumPlant;
-    }, {});
-    setGroupedArray(groupedPlants);
-  }, [array, filterCategory]);
+const Filter = ({ filterCategory, setFilterCategory }) => {
   function onChangeValue(event) {
     setFilterCategory(event.target.value);
   }
   return (
-    <ul className="mx-6 my-4 flex flex-row justify-between border-b-2 border-b-slate-300 text-slate-400 font-bold uppercase text-xs">
+    <ul className="animate-fade-in mx-6 my-4 flex flex-row justify-between border-b-2 border-b-slate-300 text-slate-400 font-bold uppercase text-xs">
       <li className="relative flex flex-col items-center justify-center">
         <input
           type="radio"
-          id="water"
+          id="wateringVolume"
           onChange={onChangeValue}
           checked={filterCategory === "wateringVolume"}
           name="hosting"
-          value="water"
-          className="peer/water checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+          value="wateringVolume"
+          className="peer/wateringVolume checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
         <label
-          htmlFor="water"
-          className="peer-checked/water:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
+          htmlFor="wateringVolume"
+          className="peer-checked/wateringVolume:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
         >
           <div className="block">
             <div className="w-full">Water</div>
@@ -107,28 +96,57 @@ const Filter = ({ array, setGroupedArray }) => {
 export default function Home() {
   const [plants, setPlants] = useState([]);
   const [groupedPlants, setGroupedPlants] = useState();
+  const [filterCategory, setFilterCategory] = useState("wateringVolume");
 
-  const fetchPlants = async () => {
+  const fetchPlants = async (sortParam) => {
     const { data: plants } = await supabase
       .from("plants")
       .select("*")
-      .order("name", true);
+      .order(sortParam, true);
     setPlants(plants);
   };
+
+  useState(() => {
+    fetchPlants(filterCategory);
+  }, [filterCategory]);
+
+  useEffect(() => {
+    const groupedPlants = plants.reduce((accumPlant, currentPlant) => {
+      if (!accumPlant[currentPlant[filterCategory]]) {
+        accumPlant[currentPlant[filterCategory]] = [];
+      }
+      accumPlant[currentPlant[filterCategory]].push(currentPlant);
+      return accumPlant;
+    }, {});
+    setGroupedPlants(groupedPlants);
+  }, [plants, filterCategory]);
+
   const grouped = [];
   for (const prop in groupedPlants) {
     grouped.push(
-      <header className="flex flex-row justify-between items-baseline font-bold mx-6">
-        <h1 className="text-xl">{prop}</h1>
+      <motion.header
+        animate={{
+          opacity: 1,
+          transition: { duration: 0.75 },
+        }}
+        initial={{ opacity: 0 }}
+        key={grouped.length + "heafer"}
+        className="flex flex-row justify-between items-baseline font-bold mx-6"
+      >
+        <h1 className="text-xl ">
+          {prop} {plants[0][filterCategory + "Category"]}
+        </h1>
         <p className="text-slate-300 text-xs uppercase">
           {groupedPlants[prop].length} plants
         </p>
-      </header>
+      </motion.header>
     );
     const groupPlants = groupedPlants[prop].map((plant) => {
       return (
-        <li
-          className=" min-h-[6rem] rounded-xl isolate aspect-square relative flex flex-col justify-between items-start  w-full pl-2 pr-4 py-2 text-white overflow-hidden bg-[#b0cde3] last:bg-[#c1e0df] "
+        <motion.li
+          layout
+          layoutId={plant.id}
+          className=" min-h-[6rem] rounded-xl isolate aspect-square relative flex flex-col justify-between items-start  w-full pl-2 pr-4 py-2 text-white overflow-hidden bg-[#b0cde3]"
           key={plant.id}
         >
           <div className="absolute bottom-1 right-0 h-5/6 w-1/2">
@@ -146,19 +164,19 @@ export default function Home() {
           <button className="rounded-full bg-white/30 text-white w-8 h-8 flex justify-center items-center text-2xl pb-1">
             +
           </button>
-        </li>
+        </motion.li>
       );
     });
     grouped.push(
-      <ul className=" mx-6 pt-4 pb-10 gap-4 grid md:aspect-auto grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 justify-items-center">
+      <motion.ul
+        layout
+        key={grouped.length}
+        className=" mx-6 pt-4 pb-10 gap-4 grid md:aspect-auto grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 justify-items-center"
+      >
         {groupPlants}
-      </ul>
+      </motion.ul>
     );
   }
-  useEffect(() => {
-    fetchPlants();
-  }, []);
-
   return (
     <div className="">
       <Head>
@@ -197,7 +215,12 @@ export default function Home() {
           </div>
         </form>
 
-        <Filter array={plants} setGroupedArray={setGroupedPlants} />
+        <Filter
+          array={plants}
+          setGroupedArray={setGroupedPlants}
+          filterCategory={filterCategory}
+          setFilterCategory={setFilterCategory}
+        />
 
         {grouped}
       </main>
