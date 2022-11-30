@@ -130,10 +130,10 @@ export default function Home() {
           transition: { duration: 0.75 },
         }}
         initial={{ opacity: 0 }}
-        key={grouped.length + "heafer"}
+        key={grouped.length + filterCategory}
         className="flex flex-row justify-between items-baseline font-bold mx-6"
       >
-        <h1 className="text-xl ">
+        <h1 className="text-xl animate-fade-in ">
           {prop} {plants[0][filterCategory + "Category"]}
         </h1>
         <p className="text-slate-300 text-xs uppercase">
