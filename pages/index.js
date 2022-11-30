@@ -21,7 +21,7 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
           checked={filterCategory === "wateringVolume"}
           name="hosting"
           value="wateringVolume"
-          className="peer/wateringVolume checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+          className="peer/wateringVolume checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
         <label
           htmlFor="wateringVolume"
@@ -31,6 +31,12 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
             <div className="w-full">Water</div>
           </div>
         </label>
+        {filterCategory === "wateringVolume" ? (
+          <motion.div
+            layoutId={"dot"}
+            className="w-1.5 h-1.5 bg-slate-700 -bottom-1 absolute rounded-full"
+          ></motion.div>
+        ) : null}
       </li>
       <li className="relative flex flex-col items-center justify-center">
         <input
@@ -40,7 +46,7 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
           onChange={onChangeValue}
           checked={filterCategory === "size"}
           value="size"
-          className="peer/size checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+          className="peer/size checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
         <label
           htmlFor="size"
@@ -50,6 +56,12 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
             <div className="w-full">Size</div>
           </div>
         </label>
+        {filterCategory === "size" ? (
+          <motion.div
+            layoutId={"dot"}
+            className="w-1.5 h-1.5 bg-slate-700 -bottom-1 absolute rounded-full"
+          ></motion.div>
+        ) : null}
       </li>
       <li className="relative flex flex-col items-center justify-center">
         <input
@@ -59,7 +71,7 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
           onChange={onChangeValue}
           checked={filterCategory === "difficulty"}
           value="difficulty"
-          className="peer/difficulty checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+          className="peer/difficulty checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
         <label
           htmlFor="difficulty"
@@ -69,6 +81,12 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
             <div className="w-full">Difficulty</div>
           </div>
         </label>
+        {filterCategory === "difficulty" ? (
+          <motion.div
+            layoutId={"dot"}
+            className="w-1.5 h-1.5 bg-slate-700 -bottom-1 absolute rounded-full"
+          ></motion.div>
+        ) : null}
       </li>
       <li className="relative flex flex-col items-center justify-center">
         <input
@@ -78,7 +96,7 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
           checked={filterCategory === "light"}
           onChange={onChangeValue}
           value="light"
-          className="peer/light checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+          className="peer/light checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
         <label
           htmlFor="light"
@@ -88,6 +106,12 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
             <div className="w-full">Light</div>
           </div>
         </label>
+        {filterCategory === "light" ? (
+          <motion.div
+            layoutId={"dot"}
+            className="w-1.5 h-1.5 bg-slate-700 -bottom-1 absolute rounded-full"
+          ></motion.div>
+        ) : null}
       </li>
     </ul>
   );
@@ -137,7 +161,8 @@ export default function Home() {
           {prop} {plants[0][filterCategory + "Category"]}
         </h1>
         <p className="text-slate-300 text-xs uppercase">
-          {groupedPlants[prop].length} plants
+          {groupedPlants[prop].length} plant
+          {groupedPlants[prop].length !== 1 ? "s" : null}
         </p>
       </motion.header>
     );
