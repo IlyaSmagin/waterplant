@@ -117,6 +117,22 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
   );
 };
 
+const container = {
+  show: {
+    transition: {
+      staggerChildren: 0.35,
+    },
+  },
+};
+
+const item = {
+  show: {
+    opacity: 1,
+    transition: { duration: 0.5 },
+  },
+  hidden: { opacity: 0 },
+};
+
 export default function Home() {
   const [plants, setPlants] = useState([]);
   const [groupedPlants, setGroupedPlants] = useState();
@@ -169,7 +185,8 @@ export default function Home() {
     const groupPlants = groupedPlants[prop].map((plant) => {
       return (
         <motion.li
-          layout
+          variants={item}
+          layout //TODO: execute initial only once, not on shuffle
           layoutId={plant.id}
           className=" min-h-[6rem] rounded-xl isolate aspect-square relative flex flex-col justify-between items-start  w-full pl-2 pr-4 py-2 text-white overflow-hidden bg-[#b0cde3]"
           key={plant.id}
@@ -194,11 +211,14 @@ export default function Home() {
     });
     grouped.push(
       <motion.ul
+        variants={container}
+        initial="hidden"
+        animate="show"
         layout
         key={grouped.length}
         className=" mx-6 pt-4 pb-10 gap-4 grid md:aspect-auto grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 justify-items-center"
       >
-        {groupPlants}
+        {groupPlants.slice(0, )}
       </motion.ul>
     );
   }
@@ -211,7 +231,7 @@ export default function Home() {
       </Head>
 
       <main className="mb-20">
-        <form className="flex items-center mt-8">
+        <form className="flex items-center">
           <label htmlFor="simple-search" className="sr-only">
             Search
           </label>

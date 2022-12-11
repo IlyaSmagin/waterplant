@@ -105,7 +105,7 @@ export default function Collection() {
             variants={container}
             initial="hidden"
             animate="show"
-            className="p-6 gap-4 mb-20 grid h-auto w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center overflow-hidden"
+            className="p-6 gap-4 mb-24 grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center overflow-hidden"
           >
             {plants.map((plant, index) => (
               <motion.li

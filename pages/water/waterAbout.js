@@ -88,7 +88,7 @@ export default function WaterAbout({
           <DropIcon className="h-7 w-7" />
         )}
       </button>
-      <desc className="mx-auto text-xs uppercase">water plant</desc>
+      <label className="mx-auto text-xs uppercase">water plant</label>
     </div>
   );
 }
