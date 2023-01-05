@@ -31,19 +31,21 @@ export default function waterItem({
   const [counter, setCounter] = useState(100);
   const intervalRef = useRef(null);
   useEffect(() => {
-    return () => stopCounter();
+    return stopCounter();
   }, []);
 
   const startCounter = () => {
     if (intervalRef.current) return;
     intervalRef.current = setInterval(() => {
-      setCounter((prevCounter) => prevCounter + 1);
+      setCounter((prevCounter) =>
+        prevCounter <= 200 ? prevCounter + 1 : prevCounter
+      );
     }, 10);
   };
 
   const stopCounter = (e, index) => {
     const now = new Date();
-    if (counter > 300) {
+    if (counter >= 200) {
       cancelWatering(e, index);
     }
     setCounter(100);
@@ -90,7 +92,18 @@ export default function waterItem({
         </div>
       </div>
       <button
-        className="flex-none flex justify-center items-center rounded-full bg-white/30 text-white w-12 h-12"
+        style={{
+          backgroundColor:
+            calculateNextWatering(
+              plant.lastWateringTime,
+              plant.wateringRegularity
+            ) > 23
+              ? counter > 100
+                ? `hsla(0, 100%, ${150 - counter / 2}%, ${counter / 250})`
+                : ""
+              : "",
+        }}
+        className="flex-none flex justify-center items-center rounded-full bg-white/30 text-white w-12 h-12 "
         onClick={(e) => handleWatering(e, index)}
         onMouseDown={startCounter}
         onMouseUp={(e) => stopCounter(e, index)}
