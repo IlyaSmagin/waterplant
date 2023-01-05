@@ -4,22 +4,9 @@ import Image from "next/image";
 import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
 import DropIcon from "../components/icons/drop";
 import VolumeIcon from "../components/icons/volume";
+import calculateNextWatering from "./calculateNextWatering";
 import CheckIcon from "../components/icons/check";
 import { useRef, useState, useEffect } from "react";
-
-export const calculateNextWatering = (lastWateringTime, wateringRegularity) => {
-  //calculates num of hours passed from imput timestamp
-  const date = new Date(lastWateringTime);
-  const now = new Date();
-  const timePassed = now - date;
-  const time = wateringRegularity - Math.floor(timePassed / (1000 * 60 * 60));
-  /* if (time > 0) {
-      return `Next watering in ${time} hours.`;
-    } else {
-      return `You have to water the plant!`;
-    } */
-  return time;
-};
 
 export default function waterItem({
   plant,
