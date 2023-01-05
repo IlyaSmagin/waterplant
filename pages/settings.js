@@ -1,14 +1,14 @@
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import BackIcon from "./components/icons/back";
 import DropIcon from "./components/icons/drop";
 import AddIcon from "./components/icons/add";
-import SettingsIcon from "./components/icons/settings";
 import PlantIcon from "./components/icons/plant";
 import VolumeIcon from "./components/icons/volume";
 import CheckIcon from "./components/icons/check";
 import { motion } from "framer-motion";
-import WaterItem from "./water/waterItem";
+import SettingsItem from "./settings/settingsItem";
 import WaterAbout from "./water/waterAbout";
 import { calculateNextWatering } from "./water/waterItem";
 import { useEffect, useState } from "react";
@@ -67,25 +67,6 @@ export default function Collection() {
     }, 0);
   };
 
-  const container = {
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-    hidden: { opacity: 0 },
-  };
-
-  const item = {
-    show: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.75 },
-    },
-    hidden: { opacity: 0, x: 150 },
-  };
-
   return (
     <div className="">
       <Head>
@@ -95,42 +76,24 @@ export default function Collection() {
       </Head>
 
       <main className="">
-        <div className="w-full flex justify-end p-6 pb-0">
-          <Link href="/settings">
-            <SettingsIcon className=" w-7 h-7 text-slate-400" />
+        <div className="w-full flex justify-start p-6 pb-0">
+          <Link href="/water">
+            <BackIcon className="w-8 h-8 text-slate-400" />
           </Link>
         </div>
-        <header className="flex flex-row justify-between items-baseline px-6 font-bold">
-          <h1 className="text-3xl">Water today</h1>
-          <p className="text-slate-400 text-xs uppercase">
-            {plantsLeftToWater()} plants
-          </p>
+        <header className="flex flex-row justify-between items-baseline pt-2 px-6 font-bold">
+          <h1 className="text-3xl">Settings</h1>
         </header>
         {plants.length > 0 ? (
-          <motion.ul
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="p-6 gap-4 mb-24 grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center overflow-hidden"
-          >
-            {plants.map((plant, index) => (
-              <motion.li
-                layout="position"
-                variants={item}
-                key={plant.id}
-                className="w-full"
-              >
-                <WaterItem
-                  setWhichIsOpen={setWhichIsOpen}
-                  plant={plant}
-                  handleWatering={handleWatering}
-                  index={index}
-                  cancelWatering={cancelWatering}
-                />
-                {/* pass plant */}
-              </motion.li>
-            ))}
-          </motion.ul>
+          <ul className="p-6 divide-y mb-24 grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center overflow-hidden">
+            <SettingsItem>set reminders</SettingsItem>
+            <SettingsItem type="select">day</SettingsItem>
+            <SettingsItem type="time">time</SettingsItem>
+            <SettingsItem checked>water spraying</SettingsItem>
+            <SettingsItem>plant food</SettingsItem>
+            <SettingsItem>feaves cleaning</SettingsItem>
+            <SettingsItem checked>plant age</SettingsItem>
+          </ul>
         ) : null}
         {whichIsOpen !== -1 ? (
           <WaterAbout

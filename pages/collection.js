@@ -95,9 +95,12 @@ export default function Collection() {
                 <div className="-z-10 absolute inset-y-0 -right-4 w-2/3 h-full">
                   <Image
                     src={`/../public/p${plant.id}.png`}
-                    alt=""
+                    alt={"Drawing of " + plant.name}
                     className="object-contain"
-                    fill="true"
+                    fill
+                    sizes="(max-width: 768px) 100vw,
+              (max-width: 1200px) 50vw,
+              33vw"
                   />
                 </div>
               </motion.li>
