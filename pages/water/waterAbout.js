@@ -10,7 +10,14 @@ import { useRef, useState, useEffect } from "react";
 import BackIcon from "../components/icons/back";
 
 export default function WaterAbout({
-  plant,
+  plant = {
+    id: 1,
+    name: "Hedgehog Aloe",
+    description: "Plant",
+    wateringRegularity: 96,
+    lastWateringTime: "2022-11-24T20:29:30.851719+00:00",
+    wateringVolume: 200,
+  },
   handleWatering,
   cancelWatering,
   index,
