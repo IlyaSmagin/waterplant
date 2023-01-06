@@ -8,7 +8,7 @@ import calculateNextWatering from "./calculateNextWatering";
 import CheckIcon from "../components/icons/check";
 import { useRef, useState, useEffect } from "react";
 
-export default function waterItem({
+export default function WaterItem({
   plant,
   handleWatering,
   cancelWatering,
@@ -17,9 +17,6 @@ export default function waterItem({
 }) {
   const [counter, setCounter] = useState(100);
   const intervalRef = useRef(null);
-  useEffect(() => {
-    return stopCounter();
-  }, []);
 
   const startCounter = () => {
     if (intervalRef.current) return;
@@ -31,7 +28,6 @@ export default function waterItem({
   };
 
   const stopCounter = (e, index) => {
-    const now = new Date();
     if (counter >= 200) {
       cancelWatering(e, index);
     }
@@ -41,7 +37,9 @@ export default function waterItem({
       intervalRef.current = null;
     }
   };
-
+  useEffect(() => {
+    return stopCounter();
+  }, []);
   return (
     <div
       className={
