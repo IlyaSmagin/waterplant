@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
-import { calculateNextWatering } from "./waterItem";
+import calculateNextWatering from "./calculateNextWatering";
 import DropIcon from "../components/icons/drop";
 import VolumeIcon from "../components/icons/volume";
 import CheckIcon from "../components/icons/check";

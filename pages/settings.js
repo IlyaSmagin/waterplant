@@ -10,7 +10,7 @@ import CheckIcon from "./components/icons/check";
 import { motion } from "framer-motion";
 import SettingsItem from "./settings/settingsItem";
 import WaterAbout from "./water/waterAbout";
-import { calculateNextWatering } from "./water/waterItem";
+import calculateNextWatering from "./water/calculateNextWatering";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";
 

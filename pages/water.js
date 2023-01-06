@@ -132,7 +132,7 @@ export default function Collection() {
             ))}
           </motion.ul>
         ) : null}
-        {whichIsOpen !== -1 ? (
+        {whichIsOpen !== -1 && plants.length > 0 ? (
           <WaterAbout
             plant={plants[whichIsOpen]}
             handleWatering={handleWatering}
