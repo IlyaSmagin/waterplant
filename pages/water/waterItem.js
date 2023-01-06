@@ -62,7 +62,7 @@ export default function WaterItem({
       <div className=" flex-none relative h-full w-1/4">
         <Image
           className="object-contain"
-          src={`/../public/p${plant.id}.png`}
+          src={`/p${plant.id}.png`}
           alt={"Drawing of " + plant.name}
           fill
           sizes="(max-width: 768px) 100vw,

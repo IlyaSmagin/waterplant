@@ -65,7 +65,7 @@ export default function WaterAbout({
       <div className=" h-[50vh] w-full relative">
         <Image
           className="object-contain"
-          src={`/../public/p${plant.id}.png`}
+          src={`/p${plant.id}.png`}
           alt=""
           fill
           sizes="(max-width: 768px) 100vw,

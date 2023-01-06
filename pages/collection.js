@@ -94,9 +94,9 @@ export default function Collection() {
                 </div>
                 <div className="-z-10 absolute inset-y-0 -right-4 w-2/3 h-full">
                   <Image
-                    src={`/../public/p${plant.id}.png`}
+                    src={`/p${plant.id}.png`}
                     alt={"Drawing of " + plant.name}
-                    className="object-contain"
+                    className="object-contain p-4"
                     fill
                     sizes="(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,
