@@ -193,7 +193,7 @@ export default function Home() {
         >
           <div className="absolute bottom-1 right-0 h-5/6 w-1/2">
             <Image
-              src={`/../public/p${plant.id}.png`}
+              src={`/p${plant.id}.png`}
               alt=""
               className="object-contain"
               fill="true"
@@ -218,7 +218,7 @@ export default function Home() {
         key={grouped.length}
         className=" mx-6 pt-4 pb-10 gap-4 grid md:aspect-auto grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 justify-items-center"
       >
-        {groupPlants.slice(0, )}
+        {groupPlants.slice(0)}
       </motion.ul>
     );
   }
