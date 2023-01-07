@@ -137,6 +137,28 @@ export default function Home() {
   const [plants, setPlants] = useState([]);
   const [groupedPlants, setGroupedPlants] = useState();
   const [filterCategory, setFilterCategory] = useState("wateringVolume");
+  const [searchValue, setSearchValue] = useState("");
+  console.log(searchValue);
+  const addPlant = async (index) => {
+    let { data: users } = await supabase
+      .from("users")
+      .select("*")
+      .eq("username", searchValue);
+
+    if (users.length < 1) {
+      const newArray = [...users, index];
+      const { data } = await supabase
+        .from("users")
+        .insert([{ username: searchValue, plantsarray: newArray }]);
+    } else {
+      const newArray = [...users[0].plantsarray, index];
+      console.log(users);
+      const { data } = await supabase
+        .from("users")
+        .update({ plantsarray: newArray })
+        .eq("username", searchValue);
+    }
+  };
 
   const fetchPlants = async (sortParam) => {
     const { data: plants } = await supabase
@@ -203,7 +225,10 @@ export default function Home() {
           <div className="text-md font-bold leading-none mb-2 pr-6">
             {plant.name}
           </div>
-          <button className="rounded-full bg-white/30 text-white w-8 h-8 flex justify-center items-center text-2xl pb-1">
+          <button
+            onClick={() => addPlant(plant.id)}
+            className="rounded-full bg-white/30 text-white w-8 h-8 flex justify-center items-center text-2xl pb-1"
+          >
             +
           </button>
         </motion.li>
@@ -256,6 +281,7 @@ export default function Home() {
               id="simple-search"
               className="placeholder:text-center bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:outline-slate-500 block w-full pl-10 p-2.5 "
               placeholder="Search"
+              onChange={(e) => setSearchValue(e.target.value)}
             />
           </div>
         </form>
