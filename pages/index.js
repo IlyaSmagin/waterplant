@@ -138,25 +138,35 @@ export default function Home() {
   const [groupedPlants, setGroupedPlants] = useState();
   const [filterCategory, setFilterCategory] = useState("wateringVolume");
   const [searchValue, setSearchValue] = useState("");
-  console.log(searchValue);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const username = JSON.parse(localStorage.getItem("username"));
+    if (username) {
+      setUsername(username);
+    } else {
+      localStorage.setItem("username", JSON.stringify("lalatest"));
+      setUsername("lalatest");
+    }
+  }, []);
+
   const addPlant = async (index) => {
     let { data: users } = await supabase
       .from("users")
       .select("*")
-      .eq("username", searchValue);
+      .eq("username", username);
 
     if (users.length < 1) {
       const newArray = [...users, index];
       const { data } = await supabase
         .from("users")
-        .insert([{ username: searchValue, plantsarray: newArray }]);
+        .insert([{ username: username, plantsarray: newArray }]);
     } else {
       const newArray = [...users[0].plantsarray, index];
-      console.log(users);
       const { data } = await supabase
         .from("users")
         .update({ plantsarray: newArray })
-        .eq("username", searchValue);
+        .eq("username", username);
     }
   };
 

@@ -19,9 +19,20 @@ export default function Collection() {
   const [whichIsOpen, setWhichIsOpen] = useState(-1);
 
   const fetchPlants = async () => {
+    const username = JSON.parse(localStorage.getItem("username"));
+    if (!username) {
+      localStorage.setItem("username", JSON.stringify("lalatest"));
+    }
+
+    let { data: users } = await supabase
+      .from("users")
+      .select("*")
+      .eq("username", username);
+
     const { data: plants } = await supabase
       .from("plants")
       .select("*")
+      .in("id", users[0].plantsarray)
       .order("id", true);
     setPlants(plants);
   };
