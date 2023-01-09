@@ -4,8 +4,10 @@ import Image from "next/image";
 import DropIcon from "./components/icons/drop";
 import AddIcon from "./components/icons/add";
 import SunIcon from "./components/icons/sun";
+import BackIcon from "./components/icons/back";
 import PlantIcon from "./components/icons/plant";
 import TempIcon from "./components/icons/temp";
+import CloseIcon from "./components/icons/close";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";
@@ -14,7 +16,7 @@ export default function Collection() {
   const [plants, setPlants] = useState([]);
 
   const removePlant = async (dragDelta, idToRemove) => {
-    if (dragDelta > -150) {
+    if (dragDelta > -100) {
       return;
     }
     const username = JSON.parse(localStorage.getItem("username"));
@@ -96,12 +98,14 @@ export default function Collection() {
                 className="w-full relative"
               >
                 <motion.div
-                  drag="x"
-                  dragConstraints={{ right: 0, left: -100 }}
-                  dragSnapToOrigin={true}
+                  drag={"x"}
+                  dragConstraints={{ left: -100, right: 0 }}
+                  dragElastic={{ left: 0.05, right: 0 }}
+                  dragMomentum={false}
                   onDragEnd={(event, info) =>
                     removePlant(info.offset.x, plant.id)
                   }
+                  dragSnapToOrigin={true}
                   className="rounded-xl select-none border-slate-300 isolate relative flex flex-col justify-between p-6 text-white overflow-hidden bg-[#8fbcc5] border"
                 >
                   <div className=" mb-16 text-2xl font-bold">{plant.name}</div>
@@ -147,7 +151,9 @@ export default function Collection() {
                     />
                   </div>
                 </motion.div>
-                <div className="w-full h-full absolute inset-0 bg-gradient-to-r from-cyan-500 via-red-500 to-red-500 rounded-xl -z-10" />
+                <div className="w-full h-full absolute inset-0 bg-red-500 rounded-xl -z-10 flex justify-end items-center">
+                  <CloseIcon className=" w-20 h-20 mr-4 opacity-50" />
+                </div>
               </motion.li>
             ))}
           </motion.ul>
