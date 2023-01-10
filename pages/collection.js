@@ -15,10 +15,7 @@ import { supabase } from "../lib/initSupabase";
 export default function Collection() {
   const [plants, setPlants] = useState([]);
 
-  const removePlant = async (dragDelta, idToRemove) => {
-    if (dragDelta > -100) {
-      return;
-    }
+  const removePlant = async (idToRemove) => {
     const username = JSON.parse(localStorage.getItem("username"));
     const newArray = plants
       .filter((plant) => plant.id != idToRemove)
@@ -103,12 +100,14 @@ export default function Collection() {
                   dragElastic={{ left: 0.05, right: 0 }}
                   dragMomentum={false}
                   onDragEnd={(event, info) =>
-                    removePlant(info.offset.x, plant.id)
+                    info.offset.x < -150 && info.delta.x == 0
+                      ? removePlant(plant.id)
+                      : ""
                   }
                   dragSnapToOrigin={true}
                   className="rounded-xl select-none border-slate-300 isolate relative flex flex-col justify-between p-6 text-white overflow-hidden bg-[#8fbcc5] border"
                 >
-                  <div className=" mb-16 text-2xl font-bold">{plant.name}</div>
+                  <div className="mb-16 text-2xl font-bold">{plant.name}</div>
 
                   <div className="mb-4 leading-none flex flex-row justify-start items-start">
                     <DropIcon className="-ml-1.5 mr-1 w-6 h-6 opacity-50" />
@@ -139,15 +138,13 @@ export default function Collection() {
                       <div className=" font-normal">{plant.temperature}</div>
                     </div>
                   </div>
-                  <div className="-z-10 absolute inset-y-0 -right-4 w-2/3 h-full">
+                  <div className="-z-10 absolute inset-y-2 right-0 w-2/3">
                     <Image
                       src={`/p${plant.id}.png`}
                       alt={"Drawing of " + plant.name}
-                      className="pointer-events-none object-contain p-4"
-                      fill
-                      sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
+                      className="object-contain"
+                      fill={true}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>
                 </motion.div>
