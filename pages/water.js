@@ -12,34 +12,16 @@ import WaterItem from "./water/waterItem";
 import WaterAbout from "./water/waterAbout";
 import calculateNextWatering from "./water/calculateNextWatering";
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/initSupabase";
+import fetchPlants from "./components/fetchPlants";
 
 export default function Collection() {
   const [plants, setPlants] = useState([]);
   const [whichIsOpen, setWhichIsOpen] = useState(-1);
 
-  const fetchPlants = async () => {
-    const username = JSON.parse(localStorage.getItem("username")) || "lalatest";
-    if (!username) {
-      localStorage.setItem("username", JSON.stringify("lalatest"));
-    }
-
-    let { data: users } = await supabase
-      .from("users")
-      .select("*")
-      .eq("username", username);
-
-    const { data: plants } = await supabase
-      .from("plants")
-      .select("*")
-      .in("id", users[0].plantsarray)
-      .order("id", true);
-    setPlants(plants);
-  };
-
   useEffect(() => {
-    fetchPlants();
+    fetchPlants(setPlants);
   }, []);
+
   const cancelWatering = (e, index) => {
     const now = new Date();
     const newItems = plants.map((item, itemIndex) => {
@@ -54,6 +36,7 @@ export default function Collection() {
     });
     setPlants(newItems);
   };
+
   const handleWatering = (e, index) => {
     const now = new Date();
     const newItems = plants.map((item, itemIndex) => {
@@ -64,6 +47,7 @@ export default function Collection() {
     });
     setPlants(newItems);
   };
+
   const plantsLeftToWater = () => {
     return plants.reduce((accumulator, currentPlant) => {
       if (

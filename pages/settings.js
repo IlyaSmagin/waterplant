@@ -28,25 +28,33 @@ export default function Collection() {
     { name: "leaves cleaning", state: false, type: "radio" },
     { name: "plant age", state: true, type: "radio" },
   ]);
+
   const initUser = () => {
     if (typeof window !== "undefined") {
       const initU = localStorage.getItem("username");
       const user = JSON.parse(initU);
-      setSettingsOptions(
-        settingsOptions.map((day) => {
-          if ("username" == day.name) {
-            day.state = user;
-            return day;
-          } else {
-            return day;
-          }
-        })
-      );
+      onItemChange("username", user);
+    }
+  };
+
+  const addUserToDB = async (username) => {
+    let { data: users } = await supabase
+      .from("users")
+      .select("*")
+      .eq("username", username);
+
+    if (users?.length < 1) {
+      const { data } = await supabase
+        .from("users")
+        .insert([{ username: username, plantsarray: [] }]);
     }
   };
 
   useEffect(() => {
     initUser();
+    return () => {
+      addUserToDB(settingsOptions[1].state);
+    };
   }, []);
   useEffect(() => {
     localStorage.setItem("username", JSON.stringify(settingsOptions[1].state));

@@ -226,9 +226,10 @@ export default function Home() {
           <div className="absolute bottom-1 right-0 h-5/6 w-1/2">
             <Image
               src={`/p${plant.id}.png`}
-              alt=""
+              alt={"Drawing of " + plant.name}
               className="object-contain"
               fill="true"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>
 

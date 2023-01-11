@@ -11,6 +11,7 @@ import CloseIcon from "./components/icons/close";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";
+import fetchPlants from "./components/fetchPlants";
 
 export default function Collection() {
   const [plants, setPlants] = useState([]);
@@ -30,27 +31,8 @@ export default function Collection() {
       .eq("username", username);
   };
 
-  const fetchPlants = async () => {
-    const username = JSON.parse(localStorage.getItem("username"));
-    if (!username) {
-      localStorage.setItem("username", JSON.stringify("lalatest"));
-    }
-
-    let { data: users } = await supabase
-      .from("users")
-      .select("*")
-      .eq("username", username);
-
-    const { data: plants } = await supabase
-      .from("plants")
-      .select("*")
-      .in("id", users[0].plantsarray)
-      .order("id", true);
-    setPlants(plants);
-  };
-
   useEffect(() => {
-    fetchPlants();
+    fetchPlants(setPlants);
   }, []);
 
   const container = {
