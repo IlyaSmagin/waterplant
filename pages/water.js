@@ -19,7 +19,7 @@ export default function Collection() {
   const [whichIsOpen, setWhichIsOpen] = useState(-1);
 
   const fetchPlants = async () => {
-    const username = JSON.parse(localStorage.getItem("username"));
+    const username = JSON.parse(localStorage.getItem("username")) || "lalatest";
     if (!username) {
       localStorage.setItem("username", JSON.stringify("lalatest"));
     }

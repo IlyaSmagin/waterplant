@@ -1,43 +1,52 @@
-import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
-import CheckIcon from "../components/icons/check";
-import { useState } from "react";
-
 export default function SettingsItem({
   type = "radio",
-  checked = false,
+  state = false,
+  onChange,
   children,
 }) {
-  const [isChecked, setIsChecked] = useState(checked);
   return (
     <li
       className={
         "pr-4 pl-0 py-4 w-full overflow-hidden h-full flex flex-row justify-between items-center"
       }
     >
-      <div className="uppercase text-sm text-slate-400 font-bold flex-none relative">
+      <div className="uppercase text-sm text-slate-400 font-bold flex-none relative tracking-wider">
         {children}
       </div>
 
       <button className="flex-none flex justify-center items-center rounded-full bg-white/30 text-white">
         {type == "radio" ? (
           <label
-            for={children + "toggle"}
-            class="flex cursor-pointer select-none items-center"
+            htmlFor={children + "toggle"}
+            className="flex cursor-pointer select-none items-center"
           >
-            <div class="relative">
+            <div className="relative">
               <input
                 type="checkbox"
                 id={children + "toggle"}
-                class="sr-only peer"
-                checked={isChecked}
-                onChange={() => setIsChecked((prev) => !prev)}
+                className="sr-only peer"
+                checked={state}
+                onChange={() => onChange(children, !state)}
               />
-              <div class="block h-8 w-14 rounded-full bg-slate-300 peer-checked:bg-slate-700 transition-colors"></div>
-              <div class="peer-checked:translate-x-full absolute left-1 top-1 h-6 w-6 rounded-full bg-white transition"></div>
+              <div className="block h-8 w-14 rounded-full bg-slate-300 peer-checked:bg-slate-700 transition-colors"></div>
+              <div className="peer-checked:translate-x-full absolute left-1 top-1 h-6 w-6 rounded-full bg-white transition"></div>
             </div>
           </label>
+        ) : type == "time" ? (
+          <input
+            className="text-slate-500 text-right"
+            type={type}
+            id={children + "time"}
+            onChange={(e) => onChange(children, e.target.value)}
+          />
         ) : (
-          <div className="text-slate-500">09:20</div>
+          <input
+            className="text-slate-500 text-right"
+            type={type}
+            id={children + "text"}
+            onChange={(e) => onChange(children, e.target.value)}
+            placeholder={state}
+          />
         )}
       </button>
     </li>

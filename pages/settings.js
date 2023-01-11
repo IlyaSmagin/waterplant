@@ -1,72 +1,86 @@
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 import BackIcon from "./components/icons/back";
 import DropIcon from "./components/icons/drop";
 import AddIcon from "./components/icons/add";
 import PlantIcon from "./components/icons/plant";
-import VolumeIcon from "./components/icons/volume";
-import CheckIcon from "./components/icons/check";
 import { motion } from "framer-motion";
 import SettingsItem from "./settings/settingsItem";
-import WaterAbout from "./water/waterAbout";
-import calculateNextWatering from "./water/calculateNextWatering";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";
 
 export default function Collection() {
-  const [plants, setPlants] = useState([]);
-  const [whichIsOpen, setWhichIsOpen] = useState(-1);
-
-  const fetchPlants = async () => {
-    const { data: plants } = await supabase
-      .from("plants")
-      .select("*")
-      .order("id", true);
-    setPlants(plants);
+  const [week, setWeek] = useState([
+    { day: "Mon", isSet: true },
+    { day: "Tue", isSet: false },
+    { day: "Wen", isSet: false },
+    { day: "Thu", isSet: false },
+    { day: "Fri", isSet: true },
+    { day: "Sat", isSet: false },
+    { day: "Sun", isSet: false },
+  ]);
+  const [settingsOptions, setSettingsOptions] = useState([
+    { name: "set reminders", state: false, type: "radio" },
+    {
+      name: "username",
+      state: "",
+      type: "text",
+    },
+    { name: "time", state: "09:20", type: "time" },
+    { name: "water spraying", state: true, type: "radio" },
+    { name: "plant food", state: false, type: "radio" },
+    { name: "leaves cleaning", state: false, type: "radio" },
+    { name: "plant age", state: true, type: "radio" },
+  ]);
+  const initUser = async () => {
+    if (typeof window !== "undefined") {
+      const initU = localStorage.getItem("username");
+      const user = await JSON.parse(initU);
+      console.log(user, "init");
+      setSettingsOptions(
+        settingsOptions.map((day) => {
+          if ("username" == day.name) {
+            day.state = user;
+            return day;
+          } else {
+            return day;
+          }
+        })
+      );
+    }
   };
 
   useEffect(() => {
-    fetchPlants();
+    initUser();
   }, []);
-  const cancelWatering = (e, index) => {
-    const now = new Date();
-    const newItems = plants.map((item, itemIndex) => {
-      if (itemIndex == index) {
-        return {
-          ...item,
-          lastWateringTime:
-            now.toISOString() - item.wateringRegularity * (1000 * 60 * 60),
-        };
-      }
-      return item;
-    });
-    setPlants(newItems);
+  useEffect(() => {
+    localStorage.setItem("username", JSON.stringify(settingsOptions[1].state));
+    console.log(settingsOptions[1].state, "sync");
+  }, [settingsOptions]);
+  const onItemChange = (itemName, newValue) => {
+    setSettingsOptions(
+      settingsOptions.map((day) => {
+        if (itemName == day.name) {
+          day.state = newValue;
+          return day;
+        } else {
+          return day;
+        }
+      })
+    );
   };
-  const handleWatering = (e, index) => {
-    const now = new Date();
-    const newItems = plants.map((item, itemIndex) => {
-      if (itemIndex == index) {
-        return { ...item, lastWateringTime: now.toISOString() };
-      }
-      return item;
-    });
-    setPlants(newItems);
+  const toggleDay = (index) => {
+    setWeek(
+      week.map((day, currentDayIndex) => {
+        if (currentDayIndex == index) {
+          day.isSet = !day.isSet;
+          return day;
+        } else {
+          return day;
+        }
+      })
+    );
   };
-  const plantsLeftToWater = () => {
-    return plants.reduce((accumulator, currentPlant) => {
-      if (
-        calculateNextWatering(
-          currentPlant.lastWateringTime,
-          currentPlant.wateringRegularity
-        ) < 23
-      ) {
-        return accumulator + 1;
-      }
-      return accumulator;
-    }, 0);
-  };
-
   return (
     <div className="">
       <Head>
@@ -84,26 +98,39 @@ export default function Collection() {
         <header className="flex flex-row justify-between items-baseline pt-2 px-6 font-bold">
           <h1 className="text-3xl">Settings</h1>
         </header>
-        {plants.length > 0 ? (
-          <ul className="p-6 divide-y mb-24 grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center overflow-hidden">
-            <SettingsItem>set reminders</SettingsItem>
-            <SettingsItem type="select">day</SettingsItem>
-            <SettingsItem type="time">time</SettingsItem>
-            <SettingsItem checked>water spraying</SettingsItem>
-            <SettingsItem>plant food</SettingsItem>
-            <SettingsItem>feaves cleaning</SettingsItem>
-            <SettingsItem checked>plant age</SettingsItem>
-          </ul>
-        ) : null}
-        {whichIsOpen !== -1 ? (
-          <WaterAbout
-            plant={plants[whichIsOpen]}
-            handleWatering={handleWatering}
-            index={whichIsOpen}
-            cancelWatering={cancelWatering}
-            setWhichIsOpen={setWhichIsOpen}
-          />
-        ) : null}
+
+        <ul className="p-6 pt-8 divide-y mb-24 grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-start overflow-hidden">
+          <div className="w-screen mr-8 -ml-6">
+            <h4 className="uppercase ml-6 text-sm tracking-wider text-slate-400 font-bold ">
+              Water days
+            </h4>
+            <ul className="flex flex-row my-4 tracking-wider overflow-x-scroll pb-2">
+              {week.map((day, index) => (
+                <li
+                  key={index + "day"}
+                  onClick={() => toggleDay(index)}
+                  className={`px-5 py-3 rounded-lg uppercase text-xs font-bold mr-6 flex justify-center items-center first:ml-6 transition-colors ${
+                    day.isSet
+                      ? "bg-slate-700 text-slate-200"
+                      : "bg-slate-200 text-slate-500"
+                  }`}
+                >
+                  {day.day}
+                </li>
+              ))}
+            </ul>
+          </div>
+          {settingsOptions.map((option) => (
+            <SettingsItem
+              key={option.name}
+              state={option.state}
+              type={option.type}
+              onChange={onItemChange}
+            >
+              {option.name}
+            </SettingsItem>
+          ))}
+        </ul>
       </main>
       <nav className="bg-[#f7f8f9] border-slate-200 fixed inset-x-0 bottom-0 p-6 pt-4 border-t">
         <ul className=" flex flex-row justify-around text-slate-500">
