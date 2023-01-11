@@ -21,22 +21,17 @@ export default function Collection() {
   ]);
   const [settingsOptions, setSettingsOptions] = useState([
     { name: "set reminders", state: false, type: "radio" },
-    {
-      name: "username",
-      state: "",
-      type: "text",
-    },
+    { name: "username", state: "lalatest", type: "text" },
     { name: "time", state: "09:20", type: "time" },
     { name: "water spraying", state: true, type: "radio" },
     { name: "plant food", state: false, type: "radio" },
     { name: "leaves cleaning", state: false, type: "radio" },
     { name: "plant age", state: true, type: "radio" },
   ]);
-  const initUser = async () => {
+  const initUser = () => {
     if (typeof window !== "undefined") {
       const initU = localStorage.getItem("username");
-      const user = await JSON.parse(initU);
-      console.log(user, "init");
+      const user = JSON.parse(initU);
       setSettingsOptions(
         settingsOptions.map((day) => {
           if ("username" == day.name) {
@@ -55,7 +50,6 @@ export default function Collection() {
   }, []);
   useEffect(() => {
     localStorage.setItem("username", JSON.stringify(settingsOptions[1].state));
-    console.log(settingsOptions[1].state, "sync");
   }, [settingsOptions]);
   const onItemChange = (itemName, newValue) => {
     setSettingsOptions(
