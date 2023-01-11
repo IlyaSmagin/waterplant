@@ -11,7 +11,7 @@ import CloseIcon from "./components/icons/close";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/initSupabase";
-import fetchPlants from "./components/fetchPlants";
+import fetchPlants from "./api/fetchPlants";
 
 export default function Collection() {
   const [plants, setPlants] = useState([]);

@@ -12,7 +12,7 @@ import WaterItem from "./water/waterItem";
 import WaterAbout from "./water/waterAbout";
 import calculateNextWatering from "./water/calculateNextWatering";
 import { useEffect, useState } from "react";
-import fetchPlants from "./components/fetchPlants";
+import fetchPlants from "./api/fetchPlants";
 
 export default function Collection() {
   const [plants, setPlants] = useState([]);
