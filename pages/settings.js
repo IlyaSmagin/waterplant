@@ -7,7 +7,7 @@ import PlantIcon from "./components/icons/plant";
 import { motion } from "framer-motion";
 import SettingsItem from "./settings/settingsItem";
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/initSupabase";
+import { addNewUser } from "./api/fetchPlants";
 
 export default function Collection() {
   const [week, setWeek] = useState([
@@ -37,28 +37,17 @@ export default function Collection() {
     }
   };
 
-  const addUserToDB = async (username) => {
-    let { data: users } = await supabase
-      .from("users")
-      .select("*")
-      .eq("username", username);
-
-    if (users?.length < 1) {
-      const { data } = await supabase
-        .from("users")
-        .insert([{ username: username, plantsarray: [] }]);
-    }
-  };
-
   useEffect(() => {
     initUser();
     return () => {
-      addUserToDB(settingsOptions[1].state);
+      addNewUser(settingsOptions[1].state);
     };
   }, []);
+
   useEffect(() => {
     localStorage.setItem("username", JSON.stringify(settingsOptions[1].state));
   }, [settingsOptions]);
+
   const onItemChange = (itemName, newValue) => {
     setSettingsOptions(
       settingsOptions.map((day) => {
@@ -71,6 +60,7 @@ export default function Collection() {
       })
     );
   };
+
   const toggleDay = (index) => {
     setWeek(
       week.map((day, currentDayIndex) => {
@@ -83,6 +73,7 @@ export default function Collection() {
       })
     );
   };
+  
   return (
     <div className="">
       <Head>

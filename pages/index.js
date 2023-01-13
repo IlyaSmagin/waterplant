@@ -6,7 +6,7 @@ import AddIcon from "./components/icons/add";
 import PlantIcon from "./components/icons/plant";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { supabase } from "../lib/initSupabase";
+import { addPlantToUserArray, fetchSortedPlants } from "./api/fetchPlants";
 const Filter = ({ filterCategory, setFilterCategory }) => {
   function onChangeValue(event) {
     setFilterCategory(event.target.value);
@@ -137,7 +137,7 @@ export default function Home() {
   const [plants, setPlants] = useState([]);
   const [groupedPlants, setGroupedPlants] = useState();
   const [filterCategory, setFilterCategory] = useState("wateringVolume");
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState(""); //TODO Search w/ setTimeout from server
   const [username, setUsername] = useState("");
 
   useEffect(() => {
@@ -150,36 +150,8 @@ export default function Home() {
     }
   }, []);
 
-  const addPlant = async (index) => {
-    let { data: users } = await supabase
-      .from("users")
-      .select("*")
-      .eq("username", username);
-
-    if (users.length < 1) {
-      const newArray = [...users, index];
-      const { data } = await supabase
-        .from("users")
-        .insert([{ username: username, plantsarray: newArray }]);
-    } else {
-      const newArray = [...users[0].plantsarray, index];
-      const { data } = await supabase
-        .from("users")
-        .update({ plantsarray: newArray })
-        .eq("username", username);
-    }
-  };
-
-  const fetchPlants = async (sortParam) => {
-    const { data: plants } = await supabase
-      .from("plants")
-      .select("*")
-      .order(sortParam, true);
-    setPlants(plants);
-  };
-
   useState(() => {
-    fetchPlants(filterCategory);
+    fetchSortedPlants(filterCategory, setPlants);
   }, [filterCategory]);
 
   useEffect(() => {
@@ -237,7 +209,7 @@ export default function Home() {
             {plant.name}
           </div>
           <button
-            onClick={() => addPlant(plant.id)}
+            onClick={() => addPlantToUserArray(plant.id, username)}
             className="rounded-full bg-white/30 text-white w-8 h-8 flex justify-center items-center text-2xl pb-1"
           >
             +

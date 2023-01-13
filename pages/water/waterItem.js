@@ -83,7 +83,7 @@ export default function WaterItem({
           <div className=" font-normal">~ {plant.wateringVolume} ml</div>
         </div>
       </div>
-      <button
+      <button //TODO touch handle pass to the button
         style={{
           backgroundColor:
             calculateNextWatering(

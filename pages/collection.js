@@ -10,26 +10,10 @@ import TempIcon from "./components/icons/temp";
 import CloseIcon from "./components/icons/close";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/initSupabase";
-import fetchPlants from "./api/fetchPlants";
+import { fetchPlants, removePlantFromUserArray } from "./api/fetchPlants";
 
 export default function Collection() {
   const [plants, setPlants] = useState([]);
-
-  const removePlant = async (idToRemove) => {
-    const username = JSON.parse(localStorage.getItem("username"));
-    const newArray = plants
-      .filter((plant) => plant.id != idToRemove)
-      .map((plant) => {
-        return plant.id;
-      });
-    const newPlants = plants.filter((plant) => plant.id != idToRemove);
-    setPlants(newPlants);
-    const { data } = await supabase
-      .from("users")
-      .update({ plantsarray: newArray })
-      .eq("username", username);
-  };
 
   useEffect(() => {
     fetchPlants(setPlants);
@@ -83,7 +67,7 @@ export default function Collection() {
                   dragMomentum={false}
                   onDragEnd={(event, info) =>
                     info.offset.x < -150 && info.delta.x == 0
-                      ? removePlant(plant.id)
+                      ? removePlantFromUserArray(plant.id, plants, setPlants)
                       : ""
                   }
                   dragSnapToOrigin={true}

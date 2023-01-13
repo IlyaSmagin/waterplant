@@ -41,7 +41,7 @@ export default function SettingsItem({
           />
         ) : (
           <input
-            className="text-slate-500 text-right"
+            className="text-slate-500 text-right" //TODO remove focus outline and add bottom gray border
             type={type}
             id={children + "text"}
             onChange={(e) => onChange(children, e.target.value)}
