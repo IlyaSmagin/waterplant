@@ -234,8 +234,14 @@ export default function Home() {
     <div className="">
       <Head>
         <title>Add a plant</title>
+
         <meta name="description" content="Add a plant to track watering" />
+        <meta name="theme-color" content="#92bf80" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" />
+        <link rel="mask-icon" href="/favicon.svg" color="#79a367" />
+        <link rel="apple-touch-icon" href="/favicon-touch.png" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
       </Head>
 
       <main className="mb-20">

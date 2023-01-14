@@ -39,7 +39,6 @@ export default function Collection() {
       <Head>
         <title>Collection</title>
         <meta name="description" content="Collection" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="">
