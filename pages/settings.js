@@ -75,10 +75,16 @@ export default function Collection() {
   };
 
   return (
-    <div className="">
+    <>
       <Head>
-        <title>Collection</title>
-        <meta name="description" content="Collection" />
+        <title>Settings</title>
+        <meta name="description" content="Settings" />
+        <meta name="theme-color" content="#92bf80" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" />
+        <link rel="mask-icon" href="/favicon.svg" color="#79a367" />
+        <link rel="apple-touch-icon" href="/favicon-touch.png" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
       </Head>
 
       <main className="">
@@ -143,6 +149,6 @@ export default function Collection() {
           </li>
         </ul>
       </nav>
-    </div>
+    </>
   );
 }

@@ -90,7 +90,7 @@ export default function WaterItem({
           </div>
         </div>
       </div>
-      <motion.button //TODO touch handle pass to the button
+      <motion.button //TODO create watering button component to pass into waterAbout and waterItem
         whileTap={{ scale: 0.8 }}
         style={{
           backgroundColor:

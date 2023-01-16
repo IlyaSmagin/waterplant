@@ -232,11 +232,11 @@ export default function Home() {
     );
   }
   return (
-    <div className="">
+    <>
       <Head>
         <title>Add a plant</title>
 
-        <meta name="description" content="Add a plant to track watering" />
+        <meta name="description" content="Add a plant to your collection" />
         <meta name="theme-color" content="#92bf80" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" href="/favicon.svg" />
@@ -317,6 +317,6 @@ export default function Home() {
           </span>
         </a>
       </footer> */}
-    </div>
+    </>
   );
 }
