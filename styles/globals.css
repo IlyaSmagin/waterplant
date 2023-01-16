@@ -13,8 +13,23 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
-
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+.scroll-thin {
+  scrollbar-width: thin;
+}
+aside {
+  background: linear-gradient(
+    to bottom,
+    white,
+    white 40%,
+    #bdd5e8 40%,
+    #bdd5e8
+  );
+}
 * {
   box-sizing: border-box;
 }
