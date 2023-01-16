@@ -16,7 +16,7 @@ export async function fetchPlants(setStateCallback) {
       .from("users")
       .select("*")
       .eq("username", username);
-    if (!users[0]) {
+    if (users == null) {
       setTimeout(() => {}, 1000);
     } else {
       foundUser = true;

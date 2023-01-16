@@ -50,52 +50,64 @@ export default function WaterAbout({
   return (
     <div
       className={
-        "z-20 p-6 inset-0 fixed flex justify-center flex-col items-center h-screen w-screen text-black bg-slate-50"
+        "z-20 px-8 py-12 inset-0 fixed flex justify-between flex-col items-center h-screen w-screen text-black bg-slate-50"
       }
     >
-      <button
-        className="-ml-1 mb-2 rounded-full self-start"
-        onClick={() => setWhichIsOpen(-1)}
-      >
-        <BackIcon className="text-slate-400 h-8 w-8" />
-      </button>
-      <div className="self-start text-lg font-bold leading-none">
-        {plant.name}
+      <div className="w-full h-fit">
+        <button
+          className="-ml-1 mb-3 rounded-full self-start"
+          onClick={() => setWhichIsOpen(-1)}
+        >
+          <BackIcon className="text-slate-400 h-9 w-9" />
+        </button>
+        <div className="self-start text-3xl font-bold leading-none -mt-1">
+          {plant.name}
+        </div>
       </div>
-      <div className=" h-[50vh] w-full relative">
-        <Image
-          className="object-contain"
-          src={`/p${plant.id}.png`}
-          alt=""
-          fill
-          sizes="(max-width: 768px) 100vw,
+      <div className="flex flex-col justify-start items-center w-full h-full">
+        <div className="max-h-[35vh] h-full w-full relative">
+          <Image
+            className="object-contain"
+            src={`/p${plant.id}.png`}
+            alt=""
+            fill
+            sizes="(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,
               33vw"
-        />
-      </div>
-      <div className=" mt-3 flex flex-row flex-nowrap w-fit p-1.5 justify-center ">
-        <div className=" font-normal">{plant.description}</div>
-      </div>
-      <div className=" mt-3 flex flex-row flex-nowrap w-fit p-1.5 justify-center rounded bg-slate-300">
-        <div className="text-slate-500  flex justify-center items-baseline">
-          <VolumeIcon className="w-6 h-6" />
+          />
         </div>
-        <div className=" font-normal">~ {plant.wateringVolume} ml</div>
+        <div className="flex flex-row flex-nowrap w-fit justify-center mt-4">
+          <div className="text-slate-700 text-sm font-semibold">
+            {plant.description}
+          </div>
+        </div>
       </div>
-      <button
-        className="mt-6 flex-none flex justify-center items-center rounded-full bg-slate-800/70 text-white w-12 h-12"
-        onClick={(e) => handleWatering(e, index)}
-      >
-        {calculateNextWatering(
-          plant.lastWateringTime,
-          plant.wateringRegularity
-        ) > 23 ? (
-          <CheckIcon className="h-7 w-7" />
-        ) : (
-          <DropIcon className="h-7 w-7" />
-        )}
-      </button>
-      <label className="mx-auto text-xs uppercase">water plant</label>
+      <div className="flex flex-col justify-between items-center">
+        <div className="mt-3 mb-4 flex flex-row flex-nowrap w-fit p-2 px-3 justify-center items-center rounded bg-slate-100">
+          <div className="text-slate-400 flex justify-center items-baseline">
+            <VolumeIcon className="w-9 h-9 mr-1" />
+          </div>
+          <div className="font-semibold text-slate-500">
+            ~ <span className="text-lg">{plant.wateringVolume}</span> ml
+          </div>
+        </div>
+        <button //TODO add initial animation
+          className="mt-6 mb-3 flex-none flex justify-center items-center rounded-full bg-slate-800/70 text-white w-14 h-14"
+          onClick={(e) => handleWatering(e, index)}
+        >
+          {calculateNextWatering(
+            plant.lastWateringTime,
+            plant.wateringRegularity
+          ) > 23 ? (
+            <CheckIcon className="h-7 w-7" />
+          ) : (
+            <DropIcon className="h-7 w-7" />
+          )}
+        </button>
+        <label className="mx-auto mb-6 text-xs font-bold tracking-wider uppercase text-slate-400">
+          water plant
+        </label>
+      </div>
     </div>
   );
 }

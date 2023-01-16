@@ -14,7 +14,7 @@ import calculateNextWatering from "./water/calculateNextWatering";
 import { useEffect, useState } from "react";
 import { fetchPlants } from "./api/fetchPlants";
 
-export default function Collection() {
+export default function Water() {
   const [plants, setPlants] = useState([]);
   const [whichIsOpen, setWhichIsOpen] = useState(-1);
 
@@ -89,81 +89,54 @@ export default function Collection() {
           name="description"
           content="See which of your plants need water"
         />
-        <meta name="theme-color" content="#92bf80" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="icon" href="/favicon.svg" />
-        <link rel="mask-icon" href="/favicon.svg" color="#79a367" />
-        <link rel="apple-touch-icon" href="/favicon-touch.png" />
-        <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
       </Head>
 
-      <main className="">
-        <div className="w-full flex justify-end p-6 pb-0">
-          <Link href="/settings">
-            <SettingsIcon className=" w-7 h-7 text-slate-400" />
-          </Link>
-        </div>
-        <header className="flex flex-row justify-between items-baseline px-6 font-bold">
-          <h1 className="text-3xl">Water today</h1>
-          <p className="text-slate-400 text-xs uppercase">
-            {plantsLeftToWater()} plants
-          </p>
-        </header>
-        {plants.length > 0 ? (
-          <motion.ul
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="p-6 gap-4 mb-24 grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center overflow-hidden"
-          >
-            {plants.map((plant, index) => (
-              <motion.li
-                layout="position"
-                variants={item}
-                key={plant.id}
-                className="w-full"
-              >
-                <WaterItem
-                  setWhichIsOpen={setWhichIsOpen}
-                  plant={plant}
-                  handleWatering={handleWatering}
-                  index={index}
-                  cancelWatering={cancelWatering}
-                />
-                {/* pass plant */}
-              </motion.li>
-            ))}
-          </motion.ul>
-        ) : null}
-        {whichIsOpen !== -1 && plants.length > 0 ? (
-          <WaterAbout
-            plant={plants[whichIsOpen]}
-            handleWatering={handleWatering}
-            index={whichIsOpen}
-            cancelWatering={cancelWatering}
-            setWhichIsOpen={setWhichIsOpen}
-          />
-        ) : null}
-      </main>
-      <nav className="bg-[#f7f8f9] border-slate-200 fixed inset-x-0 bottom-0 p-6 pt-4 border-t">
-        <ul className=" flex flex-row justify-around text-slate-500">
-          <li>
-            <Link href="/">
-              <AddIcon />
-            </Link>
-          </li>
-          <li className="text-slate-900 font-bold">
-            <Link href="/water">
-              <DropIcon />
-            </Link>
-          </li>
-          <li>
-            <Link href="/collection">
-              <PlantIcon />
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      <div className="w-full flex justify-end p-6 pb-0">
+        <Link href="/settings">
+          <SettingsIcon className=" w-7 h-7 text-slate-400" />
+        </Link>
+      </div>
+      <header className="flex flex-row justify-between items-baseline px-6 font-bold">
+        <h1 className="text-3xl">Water today</h1>
+        <p className="text-slate-400 text-xs uppercase">
+          {plantsLeftToWater()} plants
+        </p>
+      </header>
+      {plants.length > 0 ? (
+        <motion.ul
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="p-6 gap-4 mb-24 grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 justify-items-center overflow-hidden"
+        >
+          {plants.map((plant, index) => (
+            <motion.li
+              layout="position"
+              variants={item}
+              key={plant.id}
+              className="w-full"
+            >
+              <WaterItem
+                setWhichIsOpen={setWhichIsOpen}
+                plant={plant}
+                handleWatering={handleWatering}
+                index={index}
+                cancelWatering={cancelWatering}
+              />
+              {/* pass plant */}
+            </motion.li>
+          ))}
+        </motion.ul>
+      ) : null}
+      {whichIsOpen !== -1 && plants.length > 0 ? (
+        <WaterAbout
+          plant={plants[whichIsOpen]}
+          handleWatering={handleWatering}
+          index={whichIsOpen}
+          cancelWatering={cancelWatering}
+          setWhichIsOpen={setWhichIsOpen}
+        />
+      ) : null}
     </div>
   );
 }

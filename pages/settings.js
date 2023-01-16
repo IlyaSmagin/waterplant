@@ -79,76 +79,52 @@ export default function Collection() {
       <Head>
         <title>Settings</title>
         <meta name="description" content="Settings" />
-        <meta name="theme-color" content="#92bf80" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="icon" href="/favicon.svg" />
-        <link rel="mask-icon" href="/favicon.svg" color="#79a367" />
-        <link rel="apple-touch-icon" href="/favicon-touch.png" />
-        <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
       </Head>
 
-      <main className="">
-        <div className="w-full flex justify-start p-6 pb-0">
-          <Link href="/water">
-            <BackIcon className="w-8 h-8 text-slate-400" />
-          </Link>
-        </div>
-        <header className="flex flex-row justify-between items-baseline pt-2 px-6 font-bold">
-          <h1 className="text-3xl">Settings</h1>
-        </header>
+      <div className="w-full flex justify-start p-6 pb-0">
+        <Link href="/water">
+          <BackIcon className="w-8 h-8 text-slate-400" />
+        </Link>
+      </div>
+      <header className="flex flex-row justify-between items-baseline pt-2 px-6 font-bold">
+        <h1 className="text-3xl">Settings</h1>
+        {
+          //TODO compare to original design
+        }
+      </header>
 
-        <ul className="p-6 pt-8 divide-y mb-24 grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-start overflow-hidden">
-          <div className="w-screen mr-8 -ml-6">
-            <h4 className="uppercase ml-6 text-sm tracking-wider text-slate-400 font-bold ">
-              Water days
-            </h4>
-            <ul className="flex flex-row my-4 tracking-wider overflow-x-scroll pb-2">
-              {week.map((day, index) => (
-                <li
-                  key={index + "day"}
-                  onClick={() => toggleDay(index)}
-                  className={`px-5 py-3 rounded-lg uppercase text-xs font-bold mr-6 flex justify-center items-center first:ml-6 transition-colors ${
-                    day.isSet
-                      ? "bg-slate-700 text-slate-200"
-                      : "bg-slate-200 text-slate-500"
-                  }`}
-                >
-                  {day.day}
-                </li>
-              ))}
-            </ul>
-          </div>
-          {settingsOptions.map((option) => (
-            <SettingsItem
-              key={option.name}
-              state={option.state}
-              type={option.type}
-              onChange={onItemChange}
-            >
-              {option.name}
-            </SettingsItem>
-          ))}
-        </ul>
-      </main>
-      <nav className="bg-[#f7f8f9] border-slate-200 fixed inset-x-0 bottom-0 p-6 pt-4 border-t">
-        <ul className=" flex flex-row justify-around text-slate-500">
-          <li>
-            <Link href="/">
-              <AddIcon />
-            </Link>
-          </li>
-          <li className="text-slate-900 font-bold">
-            <Link href="/water">
-              <DropIcon />
-            </Link>
-          </li>
-          <li>
-            <Link href="/collection">
-              <PlantIcon />
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      <ul className="p-6 pt-8 divide-y mb-24 grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:gap-x-8 lg:gap-x-0  justify-items-start overflow-hidden">
+        <div className="w-screen lg:w-[375px] mr-8 -ml-6 md:col-span-2 lg:col-span-1 md:mb-4">
+          <h4 className="uppercase ml-6 text-sm tracking-wider text-slate-400 font-bold ">
+            Water days
+          </h4>
+          <ul className="scroll-thin flex flex-row my-4 tracking-wider overflow-x-auto pb-2">
+            {week.map((day, index) => (
+              <li
+                key={index + "day"}
+                onClick={() => toggleDay(index)}
+                className={`px-5 py-3 rounded-lg uppercase text-xs font-bold mr-6 flex justify-center items-center first:ml-6 transition-colors ${
+                  day.isSet
+                    ? "bg-slate-700 text-slate-200"
+                    : "bg-slate-200 text-slate-500"
+                }`}
+              >
+                {day.day}
+              </li>
+            ))}
+          </ul>
+        </div>
+        {settingsOptions.map((option) => (
+          <SettingsItem
+            key={option.name}
+            state={option.state}
+            type={option.type}
+            onChange={onItemChange}
+          >
+            {option.name}
+          </SettingsItem>
+        ))}
+      </ul>
     </>
   );
 }

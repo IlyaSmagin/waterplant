@@ -225,7 +225,7 @@ export default function Home() {
         animate="show"
         layout
         key={grouped.length}
-        className=" mx-6 pt-4 pb-10 gap-4 grid md:aspect-auto grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 justify-items-center"
+        className=" mx-6 pt-4 pb-10 gap-4 grid md:aspect-auto grid-cols-2 justify-items-center"
       >
         {groupPlants.slice(0)}
       </motion.ul>
@@ -237,73 +237,46 @@ export default function Home() {
         <title>Add a plant</title>
 
         <meta name="description" content="Add a plant to your collection" />
-        <meta name="theme-color" content="#92bf80" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="icon" href="/favicon.svg" />
-        <link rel="mask-icon" href="/favicon.svg" color="#79a367" />
-        <link rel="apple-touch-icon" href="/favicon-touch.png" />
-        <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
       </Head>
 
-      <main className="mb-20">
-        <form className="flex items-center">
-          <label htmlFor="simple-search" className="sr-only">
-            Search
-          </label>
-          <div className="relative w-full mt-8 mx-6">
-            <div className="flex absolute inset-y-0 left-4 items-center pointer-events-none">
-              <svg
-                aria-hidden="true"
-                className="w-5 h-5 text-gray-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            </div>
-            <input
-              type="text"
-              id="simple-search"
-              className="placeholder:text-center bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:outline-slate-500 block w-full pl-10 p-2.5 "
-              placeholder="Search"
-              onChange={(e) => setSearchValue(e.target.value)}
-            />
+      <form className="flex items-center">
+        <label htmlFor="simple-search" className="sr-only">
+          Search
+        </label>
+        <div className="relative w-full mt-8 mx-6">
+          <div className="flex absolute inset-y-0 left-4 items-center pointer-events-none">
+            <svg
+              aria-hidden="true"
+              className="w-5 h-5 text-gray-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clipRule="evenodd"
+              ></path>
+            </svg>
           </div>
-        </form>
+          <input
+            type="text"
+            id="simple-search"
+            className="placeholder:text-center bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:outline-slate-500 block w-full pl-10 p-2.5 "
+            placeholder="Search"
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+        </div>
+      </form>
 
-        <Filter
-          array={plants}
-          setGroupedArray={setGroupedPlants}
-          filterCategory={filterCategory}
-          setFilterCategory={setFilterCategory}
-        />
+      <Filter
+        array={plants}
+        setGroupedArray={setGroupedPlants}
+        filterCategory={filterCategory}
+        setFilterCategory={setFilterCategory}
+      />
 
-        {grouped}
-      </main>
-      <nav className="bg-[#f7f8f9] border-slate-200 fixed inset-x-0 bottom-0 p-6 pt-4 border-t">
-        <ul className=" flex flex-row justify-around text-slate-500">
-          <li className="text-slate-900 font-bold">
-            <Link href="/">
-              <AddIcon />
-            </Link>
-          </li>
-          <li>
-            <Link href="/water">
-              <DropIcon />
-            </Link>
-          </li>
-          <li>
-            <Link href="/collection">
-              <PlantIcon />
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      {grouped}
 
       {/* <footer className={styles.footer}>
         <a
