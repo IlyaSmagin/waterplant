@@ -7,7 +7,13 @@ const getLocalStorageUsername = () => {
   }
   return username || "lalatest";
 };
-
+export async function fetchAllPlants() {
+  const { data: plants } = await supabase
+    .from("plants")
+    .select("*")
+    .order("wateringVolume", true);
+  return plants;
+}
 export async function fetchPlants(setStateCallback) {
   const username = getLocalStorageUsername();
   let foundUser = false;

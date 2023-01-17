@@ -6,7 +6,11 @@ import AddIcon from "./components/icons/add";
 import PlantIcon from "./components/icons/plant";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { addPlantToUserArray, fetchSortedPlants } from "./api/fetchPlants";
+import {
+  addPlantToUserArray,
+  fetchSortedPlants,
+  fetchAllPlants,
+} from "./api/fetchPlants";
 const Filter = ({ filterCategory, setFilterCategory }) => {
   function onChangeValue(event) {
     setFilterCategory(event.target.value);
@@ -133,8 +137,8 @@ const item = {
   hidden: { opacity: 0 },
 };
 
-export default function Home() {
-  const [plants, setPlants] = useState([]);
+export default function Home({ data }) {
+  const [plants, setPlants] = useState(data);
   const [groupedPlants, setGroupedPlants] = useState();
   const [filterCategory, setFilterCategory] = useState("wateringVolume");
   const [searchValue, setSearchValue] = useState(""); //TODO Search w/ setTimeout from server
@@ -292,4 +296,11 @@ export default function Home() {
       </footer> */}
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const data = await fetchAllPlants();
+  return {
+    props: { data }, // will be passed to the page component as props
+  };
 }
