@@ -93,7 +93,7 @@ export default function Collection() {
         }
       </header>
 
-      <ul className="p-6 pt-8 divide-y mb-24 grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:gap-x-8 lg:gap-x-0  justify-items-start overflow-hidden">
+      <ul className="p-6 pt-8 divide-y grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:gap-x-8 lg:gap-x-0  justify-items-start overflow-hidden">
         <div className="w-screen lg:w-[375px] mr-8 -ml-6 md:col-span-2 lg:col-span-1 md:mb-4">
           <h4 className="uppercase ml-6 text-sm tracking-wider text-slate-400 font-bold ">
             Water days

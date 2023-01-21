@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
         </h1>{" "}
       </aside>
       <div className="w-full h-full lg:w-[375px] lg:h-[812px] absolute isolate lg:left-[10vw] lg:inset-y-0 lg:my-auto bg-white lg:border-4 lg:rounded-3xl lg:overflow-hidden">
-        <main className="mb-24 h-screen overflow-y-auto relative scroll-thin">
+        <main className="pb-20 h-screen lg:h-full overflow-y-auto relative scroll-thin">
           <Component {...pageProps} />
         </main>
         <nav className="bg-[#f7f8f9] border-slate-200 fixed lg:absolute inset-x-0 bottom-0 p-6 pt-4 border-t">
