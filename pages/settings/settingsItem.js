@@ -28,7 +28,7 @@ export default function SettingsItem({
                 checked={state}
                 onChange={() => onChange(children, !state)}
               />
-              <div className="block h-8 w-14 rounded-full bg-slate-300 peer-checked:bg-slate-700 transition-colors"></div>
+              <div className="block h-8 w-14 rounded-full bg-slate-300 peer-checked:bg-slate-600 transition-colors"></div>
               <div className="peer-checked:translate-x-full absolute left-1 top-1 h-6 w-6 rounded-full bg-white transition"></div>
             </div>
           </label>

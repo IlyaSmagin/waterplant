@@ -77,7 +77,7 @@ export default function WaterAbout({
           />
         </div>
         <div className="flex flex-row flex-nowrap w-fit justify-center mt-4">
-          <div className="text-slate-700 text-sm font-semibold">
+          <div className="text-slate-600 text-sm font-semibold">
             {plant.description}
           </div>
         </div>

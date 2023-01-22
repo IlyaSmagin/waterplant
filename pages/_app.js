@@ -18,14 +18,23 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <aside className="hidden lg:grid w-screen h-screen absolute -z-10 grid-cols-4 grid-rows-6 gap-12">
         {" "}
-        <h1 className="col-start-3 row-start-2 font-bold text-5xl">
+        <h1 className="col-start-3 row-start-2 font-bold text-5xl text-slate-600">
           plants
           <br />
           need
           <br /> water
         </h1>{" "}
+        <section className="col-start-3 row-start-4 col-span-2 font-semibold text-3xl text-slate-600">
+          <h2 className="mb-4">Colors</h2>
+          <div className="flex flex-row gap-4 flex-start items-center">
+            <div className="w-20 h-20 rounded-3xl border-[5px] border-slate-600 bg-[#79a367] "></div>
+            <div className="w-20 h-20 rounded-3xl border-[5px] border-slate-600 bg-[#8fbcc5] "></div>
+            <div className="w-20 h-20 rounded-3xl border-[5px] border-slate-600 bg-[#b0cde3]"></div>
+            <div className="w-20 h-20 rounded-3xl border-[5px] border-slate-600 bg-[#e5e9ea] "></div>
+          </div>
+        </section>
       </aside>
-      <div className="w-full h-full lg:w-[375px] lg:h-[812px] absolute isolate lg:left-[10vw] lg:inset-y-0 lg:my-auto bg-white lg:border-4 lg:rounded-3xl lg:overflow-hidden">
+      <div className="w-full h-full lg:w-[375px] lg:h-[812px] absolute isolate lg:left-[14vw] lg:inset-y-0 lg:my-auto bg-white lg:outline lg:outline-8 lg:outline-slate-600 lg:rounded-3xl lg:overflow-hidden">
         <main className="pb-20 h-screen lg:h-full overflow-y-auto relative scroll-thin">
           <Component {...pageProps} />
         </main>

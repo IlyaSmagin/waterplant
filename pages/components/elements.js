@@ -33,11 +33,11 @@ export default function Elements() {
             id="water"
             name="hosting"
             value="water"
-            className="peer/water checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+            className="peer/water checked:w-1.5 checked:h-1.5 bg-slate-600 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
           />
           <label
             for="water"
-            className="peer-checked/water:text-slate-700 peer-checked/water:font-bold text-slate-500 flex items-center justify-between w-full p-3 cursor-pointer"
+            className="peer-checked/water:text-slate-600 peer-checked/water:font-bold text-slate-500 flex items-center justify-between w-full p-3 cursor-pointer"
           >
             <div class="block">
               <div class="w-full">Water</div>
@@ -50,11 +50,11 @@ export default function Elements() {
             id="size"
             name="hosting"
             value="size"
-            className="peer/size checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+            className="peer/size checked:w-1.5 checked:h-1.5 bg-slate-600 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
           />
           <label
             for="size"
-            className="peer-checked/size:text-slate-700 peer-checked/size:font-bold text-slate-500 flex items-center justify-between w-full p-3 cursor-pointer"
+            className="peer-checked/size:text-slate-600 peer-checked/size:font-bold text-slate-500 flex items-center justify-between w-full p-3 cursor-pointer"
           >
             <div class="block">
               <div class="w-full">Size</div>
@@ -67,11 +67,11 @@ export default function Elements() {
             id="difficulty"
             name="hosting"
             value="difficulty"
-            className="peer/difficulty checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+            className="peer/difficulty checked:w-1.5 checked:h-1.5 bg-slate-600 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
           />
           <label
             for="difficulty"
-            className="peer-checked/difficulty:text-slate-700 peer-checked/difficulty:font-bold text-slate-500 flex items-center justify-between w-full p-3 cursor-pointer"
+            className="peer-checked/difficulty:text-slate-600 peer-checked/difficulty:font-bold text-slate-500 flex items-center justify-between w-full p-3 cursor-pointer"
           >
             <div class="block">
               <div class="w-full">Difficulty</div>
@@ -84,11 +84,11 @@ export default function Elements() {
             id="light"
             name="hosting"
             value="light"
-            className="peer/light checked:w-1.5 checked:h-1.5 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+            className="peer/light checked:w-1.5 checked:h-1.5 bg-slate-600 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
           />
           <label
             for="light"
-            className="peer-checked/light:text-slate-700 peer-checked/light:font-bold text-slate-500 flex items-center justify-between w-full p-3 cursor-pointer"
+            className="peer-checked/light:text-slate-600 peer-checked/light:font-bold text-slate-500 flex items-center justify-between w-full p-3 cursor-pointer"
           >
             <div class="block">
               <div class="w-full">Light</div>

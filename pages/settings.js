@@ -105,7 +105,7 @@ export default function Collection() {
                 onClick={() => toggleDay(index)}
                 className={`px-5 py-3 rounded-lg uppercase text-xs font-bold mr-6 flex justify-center items-center first:ml-6 transition-colors ${
                   day.isSet
-                    ? "bg-slate-700 text-slate-200"
+                    ? "bg-slate-600 text-slate-200"
                     : "bg-slate-200 text-slate-500"
                 }`}
               >
