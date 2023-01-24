@@ -26,11 +26,27 @@ function MyApp({ Component, pageProps }) {
         </h1>{" "}
         <section className="col-start-3 row-start-4 col-span-2 font-semibold text-3xl text-slate-600">
           <h2 className="mb-4">Colors</h2>
-          <div className="flex flex-row gap-4 flex-start items-center">
-            <div className="w-20 h-20 rounded-3xl border-[5px] border-slate-600 bg-[#79a367] "></div>
-            <div className="w-20 h-20 rounded-3xl border-[5px] border-slate-600 bg-[#8fbcc5] "></div>
-            <div className="w-20 h-20 rounded-3xl border-[5px] border-slate-600 bg-[#b0cde3]"></div>
-            <div className="w-20 h-20 rounded-3xl border-[5px] border-slate-600 bg-[#e5e9ea] "></div>
+          <div className="flex flex-row gap-4 flex-start items-center text-sm font-bold">
+            <div className="group w-20 h-20 rounded-3xl border-[5px] border-slate-600 bg-[#79a367] select-all">
+              <div className="duration-300 w-full h-full opacity-0 flex justify-center items-center group-hover:opacity-100 transition-opacity">
+                #79a367
+              </div>
+            </div>
+            <div className="group w-20 h-20 rounded-3xl border-[5px] border-slate-600 bg-[#8fbcc5] select-all">
+              <div className="duration-300 w-full h-full opacity-0 flex justify-center items-center group-hover:opacity-100 transition-opacity">
+                #8fbcc5
+              </div>
+            </div>
+            <div className="group w-20 h-20 rounded-3xl border-[5px] border-slate-600 bg-[#b0cde3] select-all">
+              <div className="duration-300 w-full h-full opacity-0 flex justify-center items-center group-hover:opacity-100 transition-opacity">
+                #b0cde3
+              </div>
+            </div>
+            <div className="group w-20 h-20 rounded-3xl border-[5px] border-slate-600 bg-[#e5e9ea] select-all">
+              <div className="duration-300 w-full h-full opacity-0 flex justify-center items-center group-hover:opacity-100 transition-opacity">
+                #e5e9ea
+              </div>
+            </div>
           </div>
         </section>
       </aside>
