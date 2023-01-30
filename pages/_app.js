@@ -4,10 +4,10 @@ import DropIcon from "./components/icons/drop";
 import AddIcon from "./components/icons/add";
 import PlantIcon from "./components/icons/plant";
 import "../styles/globals.css";
-import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }) {
-  useEffect(() => console.log(Component, pageProps), []);
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -60,7 +60,7 @@ function MyApp({ Component, pageProps }) {
           <ul className=" flex flex-row justify-around text-slate-500">
             <li
               className={
-                Component.name == "Home" ? "text-slate-900 font-bold" : ""
+                router.pathname == "/" ? "text-slate-900 font-bold" : ""
               }
             >
               <Link href="/">
@@ -69,7 +69,7 @@ function MyApp({ Component, pageProps }) {
             </li>
             <li
               className={
-                Component.name == "Water" ? "text-slate-900 font-bold" : ""
+                router.pathname == "/water" ? "text-slate-900 font-bold" : ""
               }
             >
               <Link href="/water">
@@ -78,7 +78,9 @@ function MyApp({ Component, pageProps }) {
             </li>
             <li
               className={
-                Component.name == "Collection" ? "text-slate-900 font-bold" : ""
+                router.pathname == "/collection"
+                  ? "text-slate-900 font-bold"
+                  : ""
               }
             >
               <Link href="/collection">
