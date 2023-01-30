@@ -4,8 +4,10 @@ import DropIcon from "./components/icons/drop";
 import AddIcon from "./components/icons/add";
 import PlantIcon from "./components/icons/plant";
 import "../styles/globals.css";
+import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
+  useEffect(() => console.log(Component, pageProps), []);
   return (
     <>
       <Head>
@@ -50,7 +52,7 @@ function MyApp({ Component, pageProps }) {
           </div>
         </section>
       </aside>
-      <div className="w-full h-full lg:w-[375px] lg:h-[812px] absolute isolate lg:left-[14vw] lg:inset-y-0 lg:my-auto bg-white lg:outline lg:outline-8 lg:outline-slate-600 lg:rounded-3xl lg:overflow-hidden">
+      <div className="w-full h-full lg:w-auto lg:h-auto lg:aspect-[375/812] lg:max-w-[375px] lg:max-h-[812px] absolute isolate lg:left-[14vw] lg:inset-y-8 lg:my-auto bg-white lg:outline lg:outline-8 lg:outline-slate-600 lg:rounded-3xl lg:overflow-hidden">
         <main className="pb-20 h-screen lg:h-full overflow-y-auto relative scroll-thin">
           <Component {...pageProps} />
         </main>
