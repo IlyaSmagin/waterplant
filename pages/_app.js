@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="apple-touch-icon" href="/favicon-touch.png" />
         <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
       </Head>
-      <aside className="hidden lg:grid w-screen h-screen absolute -z-10 grid-cols-4 grid-rows-6 gap-12">
+      <aside className="hidden lg:grid w-full h-full absolute -z-10 grid-cols-4 grid-rows-6 gap-12">
         {" "}
         <h1 className="col-start-3 row-start-2 font-bold text-5xl text-slate-600">
           plants
