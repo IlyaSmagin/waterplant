@@ -52,7 +52,7 @@ function MyApp({ Component, pageProps }) {
           </div>
         </section>
       </aside>
-      <div className="w-full h-full lg:w-auto lg:h-auto lg:aspect-[375/812] lg:max-w-[375px] lg:max-h-[812px] absolute isolate lg:left-[14vw] lg:inset-y-8 lg:my-auto bg-white lg:outline lg:outline-8 lg:outline-slate-600 lg:rounded-3xl lg:overflow-hidden">
+      <div className="w-full h-full lg:w-auto lg:h-auto lg:aspect-[375/812] lg:max-w-[375px] lg:max-h-[812px] absolute isolate lg:left-[14vw] lg:inset-y-8 lg:my-auto bg-white lg:ring-8 lg:ring-slate-600 lg:rounded-3xl lg:overflow-hidden">
         <main className="pb-20 h-screen lg:h-full overflow-y-auto relative scroll-thin">
           <Component {...pageProps} />
         </main>
