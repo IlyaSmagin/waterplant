@@ -5,7 +5,7 @@ import DropIcon from "./components/icons/drop";
 import AddIcon from "./components/icons/add";
 import PlantIcon from "./components/icons/plant";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   addPlantToUserArray,
   fetchSortedPlants,
@@ -25,11 +25,11 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
           checked={filterCategory === "wateringVolume"}
           name="hosting"
           value="wateringVolume"
-          className="peer/wateringVolume checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+          className="peer/wateringVolume checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-600 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
         <label
           htmlFor="wateringVolume"
-          className="peer-checked/wateringVolume:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
+          className="peer-checked/wateringVolume:text-slate-600 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
         >
           <div className="block">
             <div className="w-full">Water</div>
@@ -38,7 +38,7 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
         {filterCategory === "wateringVolume" ? (
           <motion.div
             layoutId={"dot"}
-            className="w-1.5 h-1.5 bg-slate-700 -bottom-1 absolute rounded-full"
+            className="w-1.5 h-1.5 bg-slate-600 -bottom-1 absolute rounded-full"
           ></motion.div>
         ) : null}
       </li>
@@ -50,11 +50,11 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
           onChange={onChangeValue}
           checked={filterCategory === "size"}
           value="size"
-          className="peer/size checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+          className="peer/size checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-600 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
         <label
           htmlFor="size"
-          className="peer-checked/size:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
+          className="peer-checked/size:text-slate-600 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
         >
           <div className="block">
             <div className="w-full">Size</div>
@@ -63,7 +63,7 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
         {filterCategory === "size" ? (
           <motion.div
             layoutId={"dot"}
-            className="w-1.5 h-1.5 bg-slate-700 -bottom-1 absolute rounded-full"
+            className="w-1.5 h-1.5 bg-slate-600 -bottom-1 absolute rounded-full"
           ></motion.div>
         ) : null}
       </li>
@@ -75,11 +75,11 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
           onChange={onChangeValue}
           checked={filterCategory === "difficulty"}
           value="difficulty"
-          className="peer/difficulty checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+          className="peer/difficulty checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-600 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
         <label
           htmlFor="difficulty"
-          className="peer-checked/difficulty:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
+          className="peer-checked/difficulty:text-slate-600 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
         >
           <div className="block">
             <div className="w-full">Difficulty</div>
@@ -88,7 +88,7 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
         {filterCategory === "difficulty" ? (
           <motion.div
             layoutId={"dot"}
-            className="w-1.5 h-1.5 bg-slate-700 -bottom-1 absolute rounded-full"
+            className="w-1.5 h-1.5 bg-slate-600 -bottom-1 absolute rounded-full"
           ></motion.div>
         ) : null}
       </li>
@@ -100,11 +100,11 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
           checked={filterCategory === "light"}
           onChange={onChangeValue}
           value="light"
-          className="peer/light checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
+          className="peer/light checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-600 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
         <label
           htmlFor="light"
-          className="peer-checked/light:text-slate-700 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
+          className="peer-checked/light:text-slate-600 flex items-center justify-between w-full px-0 pt-3 pb-2 cursor-pointer"
         >
           <div className="block">
             <div className="w-full">Light</div>
@@ -113,7 +113,7 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
         {filterCategory === "light" ? (
           <motion.div
             layoutId={"dot"}
-            className="w-1.5 h-1.5 bg-slate-700 -bottom-1 absolute rounded-full"
+            className="w-1.5 h-1.5 bg-slate-600 -bottom-1 absolute rounded-full"
           ></motion.div>
         ) : null}
       </li>
@@ -122,17 +122,15 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
 };
 
 const container = {
-  show: {
-    transition: {
-      staggerChildren: 0.35,
-    },
+  transition: {
+    staggerChildren: 2,
   },
 };
 
 const item = {
   show: {
     opacity: 1,
-    transition: { duration: 0.5 },
+    transition: { duration: 1.5 },
   },
   hidden: { opacity: 0 },
 };
@@ -169,72 +167,6 @@ export default function Home({ data }) {
     setGroupedPlants(groupedPlants);
   }, [plants, filterCategory]);
 
-  const grouped = [];
-  for (const prop in groupedPlants) {
-    grouped.push(
-      <motion.header
-        animate={{
-          opacity: 1,
-          transition: { duration: 0.75 },
-        }}
-        initial={{ opacity: 0 }}
-        key={grouped.length + filterCategory}
-        className="flex flex-row justify-between items-baseline font-bold mx-6"
-      >
-        <h1 className="text-xl animate-fade-in ">
-          {prop} {plants[0][filterCategory + "Category"]}
-        </h1>
-        <p className="text-slate-300 text-xs uppercase">
-          {groupedPlants[prop].length} plant
-          {groupedPlants[prop].length !== 1 ? "s" : null}
-        </p>
-      </motion.header>
-    );
-    const groupPlants = groupedPlants[prop].map((plant) => {
-      return (
-        <motion.li
-          variants={item}
-          layout //TODO: execute initial only once, not on shuffle
-          layoutId={plant.id}
-          className=" min-h-[6rem] rounded-xl isolate aspect-square relative flex flex-col justify-between items-start  w-full pl-2 pr-4 py-2 text-white overflow-hidden bg-[#b0cde3]"
-          key={plant.id}
-        >
-          <div className="absolute bottom-1 right-0 h-5/6 w-1/2">
-            <Image
-              src={`/p${plant.id}.png`}
-              alt={"Drawing of " + plant.name}
-              className="object-contain"
-              fill="true"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-          </div>
-
-          <div className="text-md font-bold leading-none mb-2 pr-6">
-            {plant.name}
-          </div>
-          <motion.button
-            whileTap={{ scale: 0.8 }}
-            onClick={() => addPlantToUserArray(plant.id, username)}
-            className="rounded-full bg-white/30 text-white w-8 h-8 flex justify-center items-center text-2xl pb-1"
-          >
-            +
-          </motion.button>
-        </motion.li>
-      );
-    });
-    grouped.push(
-      <motion.ul
-        variants={container}
-        initial="hidden"
-        animate="show"
-        layout
-        key={grouped.length}
-        className=" mx-6 pt-4 pb-10 gap-4 grid md:aspect-auto grid-cols-2 justify-items-center"
-      >
-        {groupPlants.slice(0)}
-      </motion.ul>
-    );
-  }
   return (
     <>
       <Head>
@@ -279,9 +211,65 @@ export default function Home({ data }) {
         filterCategory={filterCategory}
         setFilterCategory={setFilterCategory}
       />
+      {groupedPlants
+        ? Object.keys(groupedPlants)?.map((prop) => {
+            console.log(prop);
+            return (
+              <motion.section key={prop + "section"} variants={container}>
+                <motion.header
+                  key={prop + filterCategory}
+                  className="flex flex-row justify-between items-baseline font-bold mx-6"
+                >
+                  <h1 className="text-xl animate-fade-in ">
+                    {prop} {plants[0][filterCategory + "Category"]}
+                  </h1>
+                  <p className="text-slate-300 text-xs uppercase">
+                    {groupedPlants[prop].length} plant
+                    {groupedPlants[prop].length !== 1 ? "s" : null}
+                  </p>
+                </motion.header>
+                <motion.ul
+                  variants={item}
+                  key={prop + filterCategory + prop}
+                  className=" mx-6 pt-4 pb-10 gap-4 grid md:aspect-auto grid-cols-2 justify-items-center"
+                >
+                  {groupedPlants[prop].map((plant) => {
+                    return (
+                      <motion.li //TODO: execute initial only once, not on shuffle
+                        layoutId={plant.id}
+                        className=" min-h-[6rem] rounded-xl isolate aspect-square relative flex flex-col justify-between items-start  w-full pl-2 pr-4 py-2 text-white overflow-hidden bg-[#b0cde3]"
+                        key={plant.id}
+                      >
+                        <div className="absolute bottom-1 right-0 h-5/6 w-1/2">
+                          <Image
+                            src={`/p${plant.id}.png`}
+                            alt={"Drawing of " + plant.name}
+                            className="object-contain"
+                            fill="true"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                        </div>
 
-      {grouped}
-
+                        <div className="text-md font-bold leading-none mb-2 pr-6">
+                          {plant.name}
+                        </div>
+                        <motion.button
+                          whileTap={{ scale: 0.8 }}
+                          onClick={() =>
+                            addPlantToUserArray(plant.id, username)
+                          }
+                          className="rounded-full bg-white/30 text-white w-8 h-8 flex justify-center items-center text-2xl pb-1"
+                        >
+                          +
+                        </motion.button>
+                      </motion.li>
+                    );
+                  })}
+                </motion.ul>
+              </motion.section>
+            );
+          })
+        : ""}
       {/* <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
