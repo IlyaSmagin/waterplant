@@ -139,11 +139,20 @@ const item = {
 
 export default function Home({ data }) {
   const [plants, setPlants] = useState(data);
-  const [groupedPlants, setGroupedPlants] = useState();
+  const [groupedPlants, setGroupedPlants] = useState([]);
   const [filterCategory, setFilterCategory] = useState("wateringVolume");
-  const [searchValue, setSearchValue] = useState(""); //TODO Search w/ setTimeout from server
+  const [searchQuery, setSearchQuery] = useState(""); //TODO Search w/ setTimeout from server
   const [username, setUsername] = useState("");
-
+  const fitleredPlants = {};
+  for (const category in groupedPlants) {
+    fitleredPlants[category];
+    const fiteredCategory = groupedPlants[category].filter((item) =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    if (fiteredCategory.length > 0) {
+      fitleredPlants[category] = fiteredCategory;
+    }
+  }
   useEffect(() => {
     const username = JSON.parse(localStorage.getItem("username"));
     if (username) {
@@ -170,7 +179,7 @@ export default function Home({ data }) {
   }, [plants, filterCategory]);
 
   const grouped = [];
-  for (const prop in groupedPlants) {
+  for (const prop in fitleredPlants) {
     grouped.push(
       <motion.header
         animate={{
@@ -185,15 +194,14 @@ export default function Home({ data }) {
           {prop} {plants[0][filterCategory + "Category"]}
         </h1>
         <p className="text-slate-300 text-xs uppercase">
-          {groupedPlants[prop].length} plant
-          {groupedPlants[prop].length !== 1 ? "s" : null}
+          {fitleredPlants[prop].length} plant
+          {fitleredPlants[prop].length !== 1 ? "s" : null}
         </p>
       </motion.header>
     );
-    const groupPlants = groupedPlants[prop].map((plant) => {
+    const groupPlants = fitleredPlants[prop].map((plant) => {
       return (
         <motion.li
-          variants={item}
           layout //TODO: execute initial only once, not on shuffle
           layoutId={plant.id}
           className=" min-h-[6rem] rounded-xl isolate aspect-square relative flex flex-col justify-between items-start  w-full pl-2 pr-4 py-2 text-white overflow-hidden bg-[#b0cde3]"
@@ -231,7 +239,7 @@ export default function Home({ data }) {
         key={grouped.length}
         className=" mx-6 pt-4 pb-10 gap-4 grid md:aspect-auto grid-cols-2 justify-items-center"
       >
-        {groupPlants.slice(0)}
+        {groupPlants}
       </motion.ul>
     );
   }
@@ -243,7 +251,7 @@ export default function Home({ data }) {
         <meta name="description" content="Add a plant to your collection" />
       </Head>
 
-      <form className="flex items-center">
+      <form className="flex items-center" onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="simple-search" className="sr-only">
           Search
         </label>
@@ -268,7 +276,7 @@ export default function Home({ data }) {
             id="simple-search"
             className="placeholder:text-center bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:outline-slate-500 block w-full pl-10 p-2.5 "
             placeholder="Search"
-            onChange={(e) => setSearchValue(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
       </form>
