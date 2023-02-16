@@ -243,6 +243,10 @@ export default function Home({ data }) {
       </motion.ul>
     );
   }
+  const onSubmit = (e) => {
+    e.preventDefault();
+    e.target[0].blur();
+  };
   return (
     <>
       <Head>
@@ -251,7 +255,7 @@ export default function Home({ data }) {
         <meta name="description" content="Add a plant to your collection" />
       </Head>
 
-      <form className="flex items-center" onSubmit={(e) => e.preventDefault()}>
+      <form className="flex items-center" onSubmit={onSubmit}>
         <label htmlFor="simple-search" className="sr-only">
           Search
         </label>
