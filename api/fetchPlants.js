@@ -1,4 +1,4 @@
-import { supabase } from "../../lib/initSupabase";
+import { supabase } from "../lib/initSupabase";
 
 const getLocalStorageUsername = () => {
   const username = JSON.parse(localStorage.getItem("username"));

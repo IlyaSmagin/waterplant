@@ -1,13 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
-import BackIcon from "./components/icons/back";
-import DropIcon from "./components/icons/drop";
-import AddIcon from "./components/icons/add";
-import PlantIcon from "./components/icons/plant";
-import { motion } from "framer-motion";
-import SettingsItem from "./settings/settingsItem";
+import BackIcon from "../components/icons/back";
+import SettingsItem from "../components/settings/settingsItem";
 import { useEffect, useState } from "react";
-import { addNewUser } from "./api/fetchPlants";
+import { addNewUser } from "../api/fetchPlants";
 
 export default function Collection() {
   const [week, setWeek] = useState([

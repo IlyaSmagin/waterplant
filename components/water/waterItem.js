@@ -1,11 +1,9 @@
-import Head from "next/head";
-import Link from "next/link";
 import Image from "next/image";
-import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
-import DropIcon from "../components/icons/drop";
-import VolumeIcon from "../components/icons/volume";
+import { motion } from "framer-motion";
+import DropIcon from "../icons/drop";
+import VolumeIcon from "../icons/volume";
 import calculateNextWatering from "./calculateNextWatering";
-import CheckIcon from "../components/icons/check";
+import CheckIcon from "../icons/check";
 import { useRef, useState, useEffect } from "react";
 
 export default function WaterItem({

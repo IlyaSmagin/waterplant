@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Head from "next/head";
-import DropIcon from "./components/icons/drop";
-import AddIcon from "./components/icons/add";
-import PlantIcon from "./components/icons/plant";
+import DropIcon from "../components/icons/drop";
+import AddIcon from "../components/icons/add";
+import PlantIcon from "../components/icons/plant";
 import "../styles/globals.css";
 import { useRouter } from "next/router";
 

@@ -1,18 +1,12 @@
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
-import DropIcon from "./components/icons/drop";
-import AddIcon from "./components/icons/add";
-import SettingsIcon from "./components/icons/settings";
-import PlantIcon from "./components/icons/plant";
-import VolumeIcon from "./components/icons/volume";
-import CheckIcon from "./components/icons/check";
+import SettingsIcon from "../components/icons/settings";
 import { motion } from "framer-motion";
-import WaterItem from "./water/waterItem";
-import WaterAbout from "./water/waterAbout";
-import calculateNextWatering from "./water/calculateNextWatering";
+import WaterItem from "../components/water/waterItem";
+import WaterAbout from "../components/water/waterAbout";
+import calculateNextWatering from "../components/water/calculateNextWatering";
 import { useEffect, useState } from "react";
-import { fetchPlants } from "./api/fetchPlants";
+import { fetchPlants } from "../api/fetchPlants";
 
 export default function Water() {
   const [plants, setPlants] = useState([]);

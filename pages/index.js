@@ -1,16 +1,12 @@
 import Head from "next/head";
-import Link from "next/link";
 import Image from "next/image";
-import DropIcon from "./components/icons/drop";
-import AddIcon from "./components/icons/add";
-import PlantIcon from "./components/icons/plant";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   addPlantToUserArray,
   fetchSortedPlants,
   fetchAllPlants,
-} from "./api/fetchPlants";
+} from "../api/fetchPlants";
 const Filter = ({ filterCategory, setFilterCategory }) => {
   function onChangeValue(event) {
     setFilterCategory(event.target.value);

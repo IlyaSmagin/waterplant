@@ -1,13 +1,10 @@
-import Head from "next/head";
-import Link from "next/link";
 import Image from "next/image";
-import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
 import calculateNextWatering from "./calculateNextWatering";
-import DropIcon from "../components/icons/drop";
-import VolumeIcon from "../components/icons/volume";
-import CheckIcon from "../components/icons/check";
+import DropIcon from "../icons/drop";
+import VolumeIcon from "../icons/volume";
+import CheckIcon from "../icons/check";
 import { useRef, useState, useEffect } from "react";
-import BackIcon from "../components/icons/back";
+import BackIcon from "../icons/back";
 
 export default function WaterAbout({
   plant = {

@@ -1,16 +1,12 @@
 import Head from "next/head";
-import Link from "next/link";
 import Image from "next/image";
-import DropIcon from "./components/icons/drop";
-import AddIcon from "./components/icons/add";
-import SunIcon from "./components/icons/sun";
-import BackIcon from "./components/icons/back";
-import PlantIcon from "./components/icons/plant";
-import TempIcon from "./components/icons/temp";
-import CloseIcon from "./components/icons/close";
+import DropIcon from "../components/icons/drop";
+import SunIcon from "../components/icons/sun";
+import TempIcon from "../components/icons/temp";
+import CloseIcon from "../components/icons/close";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { fetchPlants, removePlantFromUserArray } from "./api/fetchPlants";
+import { fetchPlants, removePlantFromUserArray } from "../api/fetchPlants";
 
 export default function Collection() {
   const [plants, setPlants] = useState([]);
