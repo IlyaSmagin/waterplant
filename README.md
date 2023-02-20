@@ -1,34 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# [Plants need water](https://waterplant.vercel.app/)
 
-## Getting Started
+### Desktop
 
-First, run the development server:
+[![Desktop screenshot](./public/1920x1080screen.png)](https://waterplant.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+<div style="display:flex; justify-content: space-between;">
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<div style="width:50%; max-width:375px; display:inline-block;">
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Mobile (portrait)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+[![Mobile favourites page screenshot](./public/375x812favouritesScreen.jpg)](https://waterplant.vercel.app/)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+</div>
 
-## Learn More
+<div style="width:50%; max-width:375px; display:inline-block;">
 
-To learn more about Next.js, take a look at the following resources:
+### Mobile (landscape)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[![Landscape settings page screenshot](./public/375x812waterScreen.png)](https://waterplant.vercel.app/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+</div>
 
-## Deploy on Vercel
+</div>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 1. Design by [Marina Seryogina](https://www.behance.net/Marina_Seryogina)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Initial design concept on [behance](https://www.behance.net/gallery/81051045/Plants-Need-Water-Mobile-App-Concept):
+  ![Design](https://mir-s3-cdn-cf.behance.net/project_modules/fs/fe389a81051045.5cf3880c384ce.png)
+
+## 2. Database via Supabase
+
+- [API Documentation](https://supabase.com/docs/guides/database/api)
+
+## 3. Libraries
+
+- React.js / Next.js
+- Tailwind.css
+- Framer-motion
