@@ -1,6 +1,6 @@
 # [Plants need water](https://waterplant.vercel.app/)
 
-### Desktop
+### Desktop ([plants selection](https://waterplant.vercel.app/collection))
 
 [![Desktop screenshot](./public/1920x1080screen.png)](https://waterplant.vercel.app/)
 
@@ -8,7 +8,7 @@
 
 <div style="width:50%; max-width:375px; display:inline-block;">
 
-### Mobile (portrait)
+### Mobile ([my plants](https://waterplant.vercel.app/collection))
 
 [![Mobile favourites page screenshot](./public/375x812favouritesScreen.jpg)](https://waterplant.vercel.app/)
 
@@ -16,7 +16,7 @@
 
 <div style="width:50%; max-width:375px; display:inline-block;">
 
-### Mobile (landscape)
+### Mobile ([settings](https://waterplant.vercel.app/settings))
 
 [![Landscape settings page screenshot](./public/375x812waterScreen.png)](https://waterplant.vercel.app/)
 
