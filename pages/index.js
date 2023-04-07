@@ -7,7 +7,8 @@ import {
   fetchSortedPlants,
   fetchAllPlants,
 } from "../api/fetchPlants";
-const Filter = ({ filterCategory, setFilterCategory }) => {
+
+const GroupCategory = ({ filterCategory, setFilterCategory }) => {
   function onChangeValue(event) {
     setFilterCategory(event.target.value);
   }
@@ -116,29 +117,44 @@ const Filter = ({ filterCategory, setFilterCategory }) => {
     </ul>
   );
 };
-
-const container = {
-  show: {
-    transition: {
-      staggerChildren: 0.35,
-    },
-  },
+const SearchFilter = ({ setSearchQuery }) => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+    e.target[0].blur();
+  };
+  return (
+    <form className="flex items-center" onSubmit={onSubmit}>
+      <label htmlFor="simple-search" className="sr-only">
+        Search
+      </label>
+      <div className="relative w-full mt-8 mx-6">
+        <div className="flex absolute inset-y-0 left-4 items-center pointer-events-none">
+          <svg
+            aria-hidden="true"
+            className="w-5 h-5 text-gray-500"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+              clipRule="evenodd"
+            ></path>
+          </svg>
+        </div>
+        <input
+          type="text"
+          id="simple-search"
+          className="placeholder:text-center bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:outline-slate-500 block w-full pl-10 p-2.5 "
+          placeholder="Search"
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+    </form>
+  );
 };
-
-const item = {
-  show: {
-    opacity: 1,
-    transition: { duration: 0.5 },
-  },
-  hidden: { opacity: 0 },
-};
-
-export default function Home({ data }) {
-  const [plants, setPlants] = useState(data);
-  const [groupedPlants, setGroupedPlants] = useState([]);
-  const [filterCategory, setFilterCategory] = useState("wateringVolume");
-  const [searchQuery, setSearchQuery] = useState(""); //TODO Search w/ setTimeout from server
-  const [username, setUsername] = useState("");
+const Feed = ({ groupedPlants, username, searchQuery, filterCategory }) => {
   const fitleredPlants = {};
   for (const category in groupedPlants) {
     fitleredPlants[category];
@@ -149,31 +165,6 @@ export default function Home({ data }) {
       fitleredPlants[category] = fiteredCategory;
     }
   }
-  useEffect(() => {
-    const username = JSON.parse(localStorage.getItem("username"));
-    if (username) {
-      setUsername(username);
-    } else {
-      localStorage.setItem("username", JSON.stringify("lalatest"));
-      setUsername("lalatest");
-    }
-  }, []);
-
-  useState(() => {
-    fetchSortedPlants(filterCategory, setPlants);
-  }, [filterCategory]);
-
-  useEffect(() => {
-    const groupedPlants = plants.reduce((accumPlant, currentPlant) => {
-      if (!accumPlant[currentPlant[filterCategory]]) {
-        accumPlant[currentPlant[filterCategory]] = [];
-      }
-      accumPlant[currentPlant[filterCategory]].push(currentPlant);
-      return accumPlant;
-    }, {});
-    setGroupedPlants(groupedPlants);
-  }, [plants, filterCategory]);
-
   const grouped = [];
   for (const prop in fitleredPlants) {
     grouped.push(
@@ -187,7 +178,7 @@ export default function Home({ data }) {
         className="flex flex-row justify-between items-baseline font-bold mx-6"
       >
         <h1 className="text-xl animate-fade-in ">
-          {prop} {plants[0][filterCategory + "Category"]}
+          {prop} {groupedPlants[prop][0][filterCategory + "Category"]}
         </h1>
         <p className="text-slate-300 text-xs uppercase">
           {fitleredPlants[prop].length} plant
@@ -239,69 +230,77 @@ export default function Home({ data }) {
       </motion.ul>
     );
   }
-  const onSubmit = (e) => {
-    e.preventDefault();
-    e.target[0].blur();
-  };
+  return grouped;
+};
+const container = {
+  show: {
+    transition: {
+      staggerChildren: 0.35,
+    },
+  },
+};
+const item = {
+  show: {
+    opacity: 1,
+    transition: { duration: 0.5 },
+  },
+  hidden: { opacity: 0 },
+};
+
+export default function Home({ data }) {
+  const [plants, setPlants] = useState(data);
+  const [groupedPlants, setGroupedPlants] = useState();
+  const [filterCategory, setFilterCategory] = useState("wateringVolume");
+  const [searchQuery, setSearchQuery] = useState(""); //TODO Search w/ setTimeout from server
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const username = JSON.parse(localStorage.getItem("username"));
+    if (username) {
+      setUsername(username);
+    } else {
+      localStorage.setItem("username", JSON.stringify("lalatest"));
+      setUsername("lalatest");
+    }
+  }, []);
+
+  useState(() => {
+    fetchSortedPlants(filterCategory, setPlants);
+  }, [filterCategory]);
+
+  useEffect(() => {
+    const groupedPlants = plants.reduce((accumPlant, currentPlant) => {
+      if (!accumPlant[currentPlant[filterCategory]]) {
+        accumPlant[currentPlant[filterCategory]] = [];
+      }
+      accumPlant[currentPlant[filterCategory]].push(currentPlant);
+      return accumPlant;
+    }, {});
+    setGroupedPlants(groupedPlants);
+  }, [plants, filterCategory]);
+
   return (
     <>
       <Head>
         <title>Add a plant</title>
-
         <meta name="description" content="Add a plant to your collection" />
       </Head>
 
-      <form className="flex items-center" onSubmit={onSubmit}>
-        <label htmlFor="simple-search" className="sr-only">
-          Search
-        </label>
-        <div className="relative w-full mt-8 mx-6">
-          <div className="flex absolute inset-y-0 left-4 items-center pointer-events-none">
-            <svg
-              aria-hidden="true"
-              className="w-5 h-5 text-gray-500"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
-          </div>
-          <input
-            type="text"
-            id="simple-search"
-            className="placeholder:text-center bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:outline-slate-500 block w-full pl-10 p-2.5 "
-            placeholder="Search"
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-      </form>
+      <SearchFilter setSearchQuery={setSearchQuery} />
 
-      <Filter
-        array={plants}
-        setGroupedArray={setGroupedPlants}
+      <GroupCategory
         filterCategory={filterCategory}
         setFilterCategory={setFilterCategory}
       />
 
-      {grouped}
-
-      {/* <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer> */}
+      {groupedPlants ? (
+        <Feed
+          groupedPlants={groupedPlants}
+          username={username}
+          searchQuery={searchQuery}
+          filterCategory={filterCategory}
+        />
+      ) : null}
     </>
   );
 }
