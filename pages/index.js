@@ -8,17 +8,14 @@ import {
   fetchAllPlants,
 } from "../api/fetchPlants";
 
-const GroupCategory = ({ filterCategory, setFilterCategory }) => {
-  function onChangeValue(event) {
-    setFilterCategory(event.target.value);
-  }
+export const GroupCategory = ({ filterCategory, setFilterCategory }) => {
   return (
     <ul className="animate-fade-in mx-6 my-4 flex flex-row justify-between border-b-2 border-b-slate-300 text-slate-400 font-bold uppercase text-xs">
       <li className="relative flex flex-col items-center justify-center">
         <input
           type="radio"
           id="wateringVolume"
-          onChange={onChangeValue}
+          onChange={(e) => setFilterCategory(e.target.value)}
           checked={filterCategory === "wateringVolume"}
           name="hosting"
           value="wateringVolume"
@@ -44,7 +41,7 @@ const GroupCategory = ({ filterCategory, setFilterCategory }) => {
           type="radio"
           id="size"
           name="hosting"
-          onChange={onChangeValue}
+          onChange={(e) => setFilterCategory(e.target.value)}
           checked={filterCategory === "size"}
           value="size"
           className="peer/size checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
@@ -69,7 +66,7 @@ const GroupCategory = ({ filterCategory, setFilterCategory }) => {
           type="radio"
           id="difficulty"
           name="hosting"
-          onChange={onChangeValue}
+          onChange={(e) => setFilterCategory(e.target.value)}
           checked={filterCategory === "difficulty"}
           value="difficulty"
           className="peer/difficulty checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
@@ -95,7 +92,7 @@ const GroupCategory = ({ filterCategory, setFilterCategory }) => {
           id="light"
           name="hosting"
           checked={filterCategory === "light"}
-          onChange={onChangeValue}
+          onChange={(e) => setFilterCategory(e.target.value)}
           value="light"
           className="peer/light checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
@@ -117,7 +114,7 @@ const GroupCategory = ({ filterCategory, setFilterCategory }) => {
     </ul>
   );
 };
-const SearchFilter = ({ setSearchQuery }) => {
+export const SearchFilter = ({ setSearchQuery }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     e.target[0].blur();
@@ -154,7 +151,7 @@ const SearchFilter = ({ setSearchQuery }) => {
     </form>
   );
 };
-const Feed = ({ groupedPlants, username, searchQuery, filterCategory }) => {
+export const Feed = ({ groupedPlants, username, searchQuery, filterCategory }) => {
   const fitleredPlants = {};
   for (const category in groupedPlants) {
     fitleredPlants[category];
@@ -269,7 +266,7 @@ export default function Home({ data }) {
   }, [filterCategory]);
 
   useEffect(() => {
-    const groupedPlants = plants.reduce((accumPlant, currentPlant) => {
+    const groupedPlants = plants?.reduce((accumPlant, currentPlant) => {
       if (!accumPlant[currentPlant[filterCategory]]) {
         accumPlant[currentPlant[filterCategory]] = [];
       }
@@ -282,8 +279,8 @@ export default function Home({ data }) {
   return (
     <>
       <Head>
-        <title>Add a plant</title>
-        <meta name="description" content="Add a plant to your collection" />
+        <title>Find & add a plants</title>
+        <meta name="description" content="Add plants to your collection" />
       </Head>
 
       <SearchFilter setSearchQuery={setSearchQuery} />
