@@ -1,28 +1,13 @@
 # [Plants need water](https://waterplant.vercel.app/)
 
-### Desktop ([plants selection](https://waterplant.vercel.app/collection))
+### Desktop ([Plants selection](https://waterplant.vercel.app/collection))
 
 [![Desktop screenshot](./public/1920x1080screen.png)](https://waterplant.vercel.app/)
 
-<div style="display:flex; justify-content: space-between;">
+### Mobile showcase ([Settings](https://waterplant.vercel.app/settings) / [Water today](https://waterplant.vercel.app/water) / [My plants](https://waterplant.vercel.app/collection))
 
-<div style="width:50%; max-width:375px; display:inline-block;">
+[![Mobile preview](./public/preview.png)](https://waterplant.vercel.app/)
 
-### Mobile ([my plants](https://waterplant.vercel.app/collection))
-
-[![Mobile favourites page screenshot](./public/375x812favouritesScreen.jpg)](https://waterplant.vercel.app/)
-
-</div>
-
-<div style="width:50%; max-width:375px; display:inline-block;">
-
-### Mobile ([settings](https://waterplant.vercel.app/settings))
-
-[![Landscape settings page screenshot](./public/375x812waterScreen.png)](https://waterplant.vercel.app/)
-
-</div>
-
-</div>
 
 ## 1. Design by [Marina Seryogina](https://www.behance.net/Marina_Seryogina)
 
