@@ -47,7 +47,7 @@ export default function WaterAbout({
   return (
     <div
       className={
-        "z-20 px-8 py-12 inset-0 fixed flex justify-between flex-col items-center h-screen w-screen text-black bg-slate-50"
+        "z-20 px-8 py-12 inset-0 absolute flex justify-between flex-col items-center text-black bg-slate-50"
       }
     >
       <div className="w-full h-fit">

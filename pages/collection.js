@@ -67,9 +67,9 @@ export default function Collection() {
                 dragSnapToOrigin={true}
                 className="rounded-xl select-none border-slate-300 isolate relative flex flex-col justify-between p-6 text-white overflow-hidden bg-[#8fbcc5] border"
               >
-                <div className="mb-16 text-2xl font-bold">{plant.name}</div>
+                <div className="pb-16 text-2xl font-bold">{plant.name}</div>
 
-                <div className="mb-4 leading-none flex flex-row justify-start items-start">
+                <div className="pb-4 leading-none flex flex-row justify-start items-start">
                   <DropIcon className="-ml-1.5 mr-1 w-6 h-6 opacity-50" />
                   <div className="">
                     <div className="font-bold uppercase opacity-50 ">water</div>
@@ -78,7 +78,7 @@ export default function Collection() {
                     </div>
                   </div>
                 </div>
-                <div className="mb-4 leading-none flex flex-row justify-start">
+                <div className="pb-4 leading-none flex flex-row justify-start">
                   <SunIcon className="-ml-1.5 mr-1 w-6 h-6 opacity-50" />
                   <div className="">
                     <div className="font-bold uppercase opacity-50 ">light</div>
@@ -96,7 +96,7 @@ export default function Collection() {
                   <Image
                     src={`/p${plant.id}.png`}
                     alt={"Drawing of " + plant.name}
-                    className="object-contain"
+                    className="object-contain pointer-events-none"
                     fill={true}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />

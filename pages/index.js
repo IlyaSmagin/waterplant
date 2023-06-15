@@ -16,7 +16,7 @@ export const GroupCategory = ({ filterCategory, setFilterCategory }) => {
           type="radio"
           id="wateringVolume"
           onChange={(e) => setFilterCategory(e.target.value)}
-          checked={filterCategory === "wateringVolume"}
+          defaultChecked
           name="hosting"
           value="wateringVolume"
           className="peer/wateringVolume checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
@@ -42,7 +42,6 @@ export const GroupCategory = ({ filterCategory, setFilterCategory }) => {
           id="size"
           name="hosting"
           onChange={(e) => setFilterCategory(e.target.value)}
-          checked={filterCategory === "size"}
           value="size"
           className="peer/size checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
@@ -67,7 +66,6 @@ export const GroupCategory = ({ filterCategory, setFilterCategory }) => {
           id="difficulty"
           name="hosting"
           onChange={(e) => setFilterCategory(e.target.value)}
-          checked={filterCategory === "difficulty"}
           value="difficulty"
           className="peer/difficulty checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
         />
@@ -91,7 +89,6 @@ export const GroupCategory = ({ filterCategory, setFilterCategory }) => {
           type="radio"
           id="light"
           name="hosting"
-          checked={filterCategory === "light"}
           onChange={(e) => setFilterCategory(e.target.value)}
           value="light"
           className="peer/light checked:w-1.5 checked:h-1.5 checked:animate-fade-in checked:delay-500 bg-slate-700 -bottom-1 absolute w-0 h-0 rounded-full appearance-none"
@@ -151,7 +148,19 @@ export const SearchFilter = ({ setSearchQuery }) => {
     </form>
   );
 };
-export const Feed = ({ groupedPlants, username, searchQuery, filterCategory }) => {
+export const Feed = ({ groupedPlants, searchQuery, filterCategory }) => {
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const username = JSON.parse(localStorage.getItem("username"));
+    if (username) {
+      setUsername(username);
+    } else {
+      localStorage.setItem("username", JSON.stringify("lalatest"));
+      setUsername("lalatest");
+    }
+  }, []);
+
   const fitleredPlants = {};
   for (const category in groupedPlants) {
     fitleredPlants[category];
@@ -229,6 +238,7 @@ export const Feed = ({ groupedPlants, username, searchQuery, filterCategory }) =
   }
   return grouped;
 };
+
 const container = {
   show: {
     transition: {
@@ -249,17 +259,6 @@ export default function Home({ data }) {
   const [groupedPlants, setGroupedPlants] = useState();
   const [filterCategory, setFilterCategory] = useState("wateringVolume");
   const [searchQuery, setSearchQuery] = useState(""); //TODO Search w/ setTimeout from server
-  const [username, setUsername] = useState("");
-
-  useEffect(() => {
-    const username = JSON.parse(localStorage.getItem("username"));
-    if (username) {
-      setUsername(username);
-    } else {
-      localStorage.setItem("username", JSON.stringify("lalatest"));
-      setUsername("lalatest");
-    }
-  }, []);
 
   useState(() => {
     fetchSortedPlants(filterCategory, setPlants);
@@ -293,7 +292,6 @@ export default function Home({ data }) {
       {groupedPlants ? (
         <Feed
           groupedPlants={groupedPlants}
-          username={username}
           searchQuery={searchQuery}
           filterCategory={filterCategory}
         />
