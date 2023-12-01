@@ -257,10 +257,14 @@ export default function Home({ data }) {
 	const [filterCategory, setFilterCategory] = useState("wateringVolume");
 	const [searchQuery, setSearchQuery] = useState(""); //TODO Search w/ setTimeout from server
 
-	const groupedPlants = Object.groupBy(
-		plants,
-		(plant) => plant[filterCategory]
-	);
+	const groupedPlants = plants?.reduce((accumPlant, currentPlant) => {
+		if (!accumPlant[currentPlant[filterCategory]]) {
+			accumPlant[currentPlant[filterCategory]] = [];
+		}
+		accumPlant[currentPlant[filterCategory]].push(currentPlant);
+		return accumPlant;
+	}, {});
+
 	return (
 		<>
 			<Head>
